@@ -1,0 +1,248 @@
+/**
+* SEALYWORLD - Base
+* Variables, reinicio y las tres piezas que se repiten en toda la tienda:
+* el agua del fondo, la tarjeta y los botones.
+*
+* Indice:
+*   1. Variables
+*   2. Reinicio
+*   3. El agua (fondo del sitio)
+*   4. La tarjeta
+*   5. Botones
+*   6. Utilidades
+*/
+
+/*--------------------------------------------------------------
+# 1. Variables
+--------------------------------------------------------------*/
+:root {
+  /* El agua. De la espuma del bajio al azul de fondo. */
+  --sea-100: #7fd3e6;
+  --sea-300: #2fa6c6;
+  --sea-500: #0f82a8;   /* color de pagina */
+  --sea-700: #0a6386;
+  --sea-900: #064a67;
+
+  /* El cristal de las tarjetas: blanco lavado sobre el agua. Es un color
+     TRANSLUCIDO a proposito; encima de las olas del fondo cada tarjeta
+     recoge un tono distinto y por eso la pagina no se ve plana. */
+  --glass: rgb(226 246 252 / 0.24);
+  --glass-strong: rgb(226 246 252 / 0.34);
+  --glass-edge: rgb(255 255 255 / 0.22);
+
+  --blue: #0f8ede;        /* boton de compra */
+  --blue-lit: #2ba6f2;
+  --gold: #ffd75e;        /* pestana activa y borde del top donador */
+  --gold-deep: #e0a51f;
+
+  --ink: #ffffff;
+  --ink-soft: rgb(255 255 255 / 0.82);
+  --ink-faint: rgb(255 255 255 / 0.58);
+
+  --radius: 20px;
+  --radius-sm: 13px;
+  --wrap: 1180px;
+
+  --display: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+  --body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* La sombra es MUY suave: con el fondo claro una sombra dura convierte
+     cada tarjeta en un recorte pegado encima. */
+  --lift: 0 10px 26px rgb(4 45 66 / 0.18);
+}
+
+/*--------------------------------------------------------------
+# 2. Reinicio
+--------------------------------------------------------------*/
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--sea-500);
+  overflow-x: hidden;
+}
+
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+
+h1, h2, h3, p { margin: 0; }
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button, input {
+  font: inherit;
+  color: inherit;
+}
+
+button { cursor: pointer; }
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--gold);
+  color: #08384d;
+}
+
+/*--------------------------------------------------------------
+# 3. El agua (fondo del sitio)
+--------------------------------------------------------------*/
+/* Fijo y detras de todo: el contenido navega por encima. */
+.sea {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 80% at 50% -10%, #2ba3c6 0, transparent 60%),
+    linear-gradient(180deg, #1490b7 0, #0f82a8 42%, #0a6a8e 100%);
+}
+
+/* Las olas van en un elemento aparte y MAS ANCHO que la ventana: el
+   desplazamiento lateral tiene que poder correr sin descubrir el borde. */
+.sea__waves {
+  position: absolute;
+  top: 0;
+  left: -25%;
+  width: 150%;
+  height: 100%;
+  background: url("../img/bg/waves.svg") repeat-y center top / 100% auto;
+  opacity: .9;
+  will-change: transform;
+  animation: sea-drift 38s ease-in-out infinite alternate;
+}
+
+@keyframes sea-drift {
+  from { transform: translate3d(-2.5%, 0, 0); }
+  to   { transform: translate3d(2.5%, 0, 0); }
+}
+
+/*--------------------------------------------------------------
+# 4. La tarjeta
+--------------------------------------------------------------*/
+/* Todo bloque de la tienda es una de estas. El desenfoque de fondo es lo
+   que convierte el translucido en cristal: sin el, las olas se leen
+   nitidas a traves de la tarjeta y el texto pierde el contraste. */
+/* El brillo del canto superior va en un inset del box-shadow y NO en un
+   ::before. Un pseudoelemento posicionado se pinta por encima del
+   contenido de la tarjeta y lavaba las cifras grandes de los paquetes. */
+.card {
+  position: relative;
+  border-radius: var(--radius);
+  background: var(--glass);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--lift), inset 0 1px 0 rgb(255 255 255 / 0.3);
+  backdrop-filter: blur(6px) saturate(115%);
+  -webkit-backdrop-filter: blur(6px) saturate(115%);
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: 18px;
+}
+
+/*--------------------------------------------------------------
+# 5. Botones
+--------------------------------------------------------------*/
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 12px 26px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 500;
+  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+
+.btn svg { width: 19px; height: 19px; flex: none; }
+
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn--soft {
+  background: var(--glass-strong);
+  color: var(--ink);
+  border: 1px solid var(--glass-edge);
+}
+
+.btn--soft:hover { background: rgb(226 246 252 / 0.46); }
+
+.btn--buy {
+  width: 100%;
+  background: var(--blue);
+  color: #fff;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  box-shadow: 0 5px 0 #0a6aa8;
+}
+
+.btn--buy:hover { background: var(--blue-lit); }
+
+/* El boton se hunde: baja lo mismo que mide su reborde inferior, asi que
+   al pulsar parece que se aplasta contra la tarjeta. */
+.btn--buy:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 #0a6aa8;
+}
+
+/* Carrito vacio: el boton sigue ahi (quitarlo mueve el pie del panel)
+   pero deja claro que no hay nada que pagar. */
+.btn--buy:disabled {
+  background: rgb(255 255 255 / 0.16);
+  color: var(--ink-faint);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/*--------------------------------------------------------------
+# 6. Utilidades
+--------------------------------------------------------------*/
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+[hidden] { display: none !important; }
+
+/* Con movimiento reducido se apagan las animaciones de la tienda. La
+   travesia queda fuera (body.is-intro): intro.js ya decide por su cuenta
+   si se muestra, y solo llega a tener esa clase cuando SI toca verla. */
+@media (prefers-reduced-motion: reduce) {
+  body:not(.is-intro) *,
+  body:not(.is-intro) *::before,
+  body:not(.is-intro) *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200"
+     role="img" aria-label="Bolsa llena de zafiros">
+  <title>500 zafiros</title>
+  <!--
+    Orden de dibujo, que aqui es todo:
+      1. la boca oscura de la bolsa
+      2. las gemas
+      3. el cuerpo de cuero, que las tapa por abajo
+    Si las gemas fueran lo ultimo quedarian FLOTANDO delante del saco en
+    vez de asomando desde dentro.
+  -->
+  <defs>
+    <linearGradient id="b-cuero" x1=".2" y1="0" x2=".8" y2="1">
+      <stop offset="0" stop-color="#d09044"/>
+      <stop offset=".45" stop-color="#b3732f"/>
+      <stop offset="1" stop-color="#7d4a18"/>
+    </linearGradient>
+    <linearGradient id="b-oro" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe08a"/>
+      <stop offset="1" stop-color="#c8891d"/>
+    </linearGradient>
+    <linearGradient id="b-glow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7fe4ff" stop-opacity=".4"/>
+      <stop offset="1" stop-color="#7fe4ff" stop-opacity="0"/>
+    </linearGradient>
+
+    <g id="gema">
+      <path d="M0 -15 L12 -8 L12 7 L0 16 L-12 7 L-12 -8 Z"
+            fill="#1b7fe0" stroke="#0a4b9e" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M0 -15 L12 -8 L0 -1 L-12 -8 Z" fill="#8fe4ff"/>
+      <path d="M12 -8 L0 -1 L0 16 L12 7 Z" fill="#0f60cf"/>
+      <path d="M-8 -7 L-3 -10 L-1 -6 L-6 -3 Z" fill="#ffffff" opacity=".75"/>
+    </g>
+  </defs>
+
+  <ellipse cx="100" cy="182" rx="64" ry="11" fill="#04324a" opacity=".25"/>
+  <ellipse cx="100" cy="86" rx="62" ry="48" fill="url(#b-glow)"/>
+
+  <!-- 1. Boca de la bolsa -->
+  <path d="M72 100 L70 62 Q100 52 130 62 L128 100 Z" fill="#5c3410"/>
+
+  <!-- 2. Las gemas que asoman -->
+  <g transform="translate(80 70) rotate(-18)"><use href="#gema"/></g>
+  <g transform="translate(120 66) rotate(15) scale(.92)"><use href="#gema"/></g>
+  <g transform="translate(100 52) scale(1.06)"><use href="#gema"/></g>
+  <g transform="translate(100 84) rotate(4) scale(.86)"><use href="#gema"/></g>
+
+  <!-- 3. Cuerpo de cuero -->
+  <path d="M74 96 C 40 110, 26 142, 40 162 C 56 184, 144 184, 160 162
+           C 174 142, 160 110, 126 96 Z"
+        fill="url(#b-cuero)" stroke="#6b3d12" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- Luz del lado izquierdo y pliegues. Los pliegues son dos arcos, no
+       lineas rectas: el cuero cae, no se dobla en escuadra. -->
+  <path d="M78 102 C 52 116, 42 142, 50 160 C 58 174, 74 178, 84 176
+           C 62 168, 54 140, 78 102 Z" fill="#e2a656" opacity=".45"/>
+  <g fill="none" stroke="#6b3d12" stroke-width="3" stroke-linecap="round" opacity=".5">
+    <path d="M92 104 C 86 124, 88 146, 96 164"/>
+    <path d="M118 106 C 126 126, 124 148, 116 166"/>
+  </g>
+
+  <!-- Cordon: se aprieta justo donde el saco cambia de ancho -->
+  <path d="M68 100 Q100 90 132 100 Q100 116 68 100 Z" fill="#8a5b22" stroke="#5c3410" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M132 100 q16 4 20 16 M152 116 l-7 -3 M152 116 l1 -8"
+        fill="none" stroke="#5c3410" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Emblema: el mismo zafiro de la marca, pequeno y engastado en oro -->
+  <circle cx="100" cy="140" r="19" fill="url(#b-oro)" stroke="#8a5b22" stroke-width="3"/>
+  <g transform="translate(100 140) scale(.82)"><use href="#gema"/></g>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200"
+     role="img" aria-label="Tres zafiros">
+  <title>100 zafiros</title>
+  <!--
+    El zafiro de la casa. Se dibuja UNA vez en <defs> y las tres piezas
+    son copias con <use>: girar o reescalar una no obliga a rehacer el
+    resto, y el archivo pesa lo que una sola gema.
+
+    Talla hexagonal con tres caras: la de arriba recoge la luz, la
+    derecha queda en sombra y la izquierda a media luz. Ese reparto es
+    lo unico que hace que una figura plana se lea como un cristal.
+  -->
+  <defs>
+    <linearGradient id="p-glow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7fe4ff" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#7fe4ff" stop-opacity="0"/>
+    </linearGradient>
+
+    <g id="zafiro">
+      <path d="M0 -26 L21 -12 L21 13 L0 27 L-21 13 L-21 -12 Z"
+            fill="#1b7fe0" stroke="#0a4b9e" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M0 -26 L21 -12 L0 -2 L-21 -12 Z" fill="#8fe4ff"/>
+      <path d="M-21 -12 L0 -2 L0 27 L-21 13 Z" fill="#37a9f2"/>
+      <path d="M21 -12 L0 -2 L0 27 L21 13 Z" fill="#0f60cf"/>
+      <!-- Reflejo: el punto de luz que dice de donde viene el sol -->
+      <path d="M-14 -11 L-5 -16 L-2 -10 L-11 -5 Z" fill="#ffffff" opacity=".8"/>
+      <path d="M-16 2 L-11 0 L-11 12 L-16 9 Z" fill="#ffffff" opacity=".35"/>
+    </g>
+  </defs>
+
+  <!-- Resplandor de fondo: despega las gemas del color de la tarjeta -->
+  <ellipse cx="100" cy="112" rx="82" ry="62" fill="url(#p-glow)"/>
+
+  <!-- Las dos de atras van mas pequenas y giradas hacia fuera: el grupo
+       se lee como un monton y no como tres copias alineadas. -->
+  <g transform="translate(62 98) rotate(-16) scale(.88)"><use href="#zafiro"/></g>
+  <g transform="translate(140 94) rotate(17) scale(.84)"><use href="#zafiro"/></g>
+  <g transform="translate(100 124) scale(1.18)"><use href="#zafiro"/></g>
+
+  <!-- Destellos -->
+  <g fill="#eafcff">
+    <path d="M44 56 l3.5 -9 3.5 9 9 3.5 -9 3.5 -3.5 9 -3.5 -9 -9 -3.5 z"/>
+    <path d="M164 128 l2.6 -7 2.6 7 7 2.6 -7 2.6 -2.6 7 -2.6 -7 -7 -2.6 z" opacity=".8"/>
+    <path d="M150 48 l2 -5 2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 z" opacity=".6"/>
+  </g>
+</svg>
