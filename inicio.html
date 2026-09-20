@@ -4,8 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <!-- Zoom crítico inline: evita CLS al aplicar zoom antes del primer paint -->
-    <script>!function(){if(window.innerWidth>=768){document.documentElement.style.zoom=window.innerWidth/2300;}}();</script>
+    <!-- Escala critica inline: fija la escala de pagina antes del primer
+         paint, para que no haya salto de tamano al cargar main.js.
+         Escribe la variable; quien la aplica es la regla zoom del body,
+         en main.css. La formula esta tambien en main.js
+         (fitPageToScreen): si cambias una, cambia la otra. -->
+    <script>!function(){var w=window.innerWidth;if(w>=1200){document.documentElement.style.setProperty("--escala-pagina",w/2300);}}();</script>
     <title>Inicio | Sealy World</title>
     <meta name="description"
           content="Bienvenido a SealyWorld. Lee las últimas noticias, mira a la comunidad en vivo y descubre las mecánicas de nuestro servidor de Minecraft.">
@@ -39,7 +43,7 @@
     <link href="src/lib/bootstrap-icons/bootstrap-icons-subset.css" rel="stylesheet">
 
     <!-- CSS principal -->
-    <link href="src/css/main.css?v=90" rel="stylesheet">
+    <link href="src/css/main.css?v=92" rel="stylesheet">
 </head>
 
 <body class="tienda">
@@ -436,10 +440,10 @@
 <script src="src/lib/bootstrap/js/bootstrap.bundle.min.js" defer></script>
 
 <!-- Main JS File -->
-<script src="src/js/main.js?v=43" defer></script>
+<script src="src/js/main.js?v=91" defer></script>
 
 <!-- Tienda / Tebex -->
-<script src="src/js/tienda.js?v=43" defer></script>
+<script src="src/js/tienda.js?v=91" defer></script>
 
 </body>
 

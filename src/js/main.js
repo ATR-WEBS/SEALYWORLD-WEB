@@ -33,8 +33,28 @@
 
 
     /**
-     * Escalar página al tamaño de pantalla (referencia 2300px)
+     * Escalar página al tamaño de pantalla (referencia 2300px).
+     *
+     * El sitio se maqueta siempre como si el viewport midiera 2300px y se
+     * encoge para llenar la ventana real, de modo que la estructura y el
+     * orden sean identicos en cualquier pantalla.
+     *
+     * Aqui solo se escribe la variable --escala-pagina. Quien la aplica es
+     * la regla `zoom` del body, en main.css: sobre el <html>, que es donde
+     * estaba, Firefox no la aplica en paginas de ancho fijo. La misma
+     * formula esta inline en el <head> de cada pagina, que es quien la fija
+     * antes del primer paint; si tocas una, toca la otra.
+     *
+     * Solo se escala a partir de 1200px. Todos los breakpoints del sitio son
+     * max-width <= 1200, asi que por encima de ese ancho no se dispara
+     * ninguno y el layout de escritorio es identico siempre. Por debajo, dar
+     * un lienzo de 2300px mientras las media queries leen el ancho real
+     * dejaria una pagina con estilos de tablet maquetada a lo ancho de un
+     * escritorio. Ahi manda el responsive del sitio, que para eso esta.
      */
+    const ESCALA_REFERENCIA = 2300;
+    const ESCALA_DESDE = 1200;
+
     function fitPageToScreen() {
         const html = document.documentElement;
 
@@ -49,15 +69,15 @@
             .map(id => document.getElementById(id))
             .filter(Boolean);
 
-        if (window.innerWidth < 768) {
-            html.style.zoom = '';
+        if (window.innerWidth < ESCALA_DESDE) {
+            html.style.removeProperty('--escala-pagina');
             html.style.overflowX = '';
             fijos.forEach(el => el.style.zoom = '');
             return;
         }
 
-        const scale = window.innerWidth / 2300;
-        html.style.zoom = scale;
+        const scale = window.innerWidth / ESCALA_REFERENCIA;
+        html.style.setProperty('--escala-pagina', scale);
         html.style.overflowX = 'hidden';
 
         fijos.forEach(el => el.style.zoom = String(1 / scale));

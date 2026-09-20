@@ -46,6 +46,43 @@ body {
     background: transparent;
     position: relative;
     font-family: "Karla", 'Karla Fallback', sans-serif;
+
+    /* ESCALA DE PAGINA
+       El sitio se maqueta SIEMPRE como si el viewport midiera 2300px (el
+       ancho para el que esta disenado) y se encoge para llenar la ventana
+       real. Asi la estructura, el orden y las proporciones son identicos en
+       cualquier pantalla: lo unico que cambia es el tamano.
+
+       Va en el BODY y no en el <html>, que es donde estaba: Firefox arrastra
+       un bug con zoom sobre el elemento raiz cuando la pagina tiene ancho
+       fijo (bugzilla 1544649), y este sitio lo tiene (min-width: 1200px).
+       En el body funciona en los tres motores.
+
+       El valor lo escribe el script inline del <head> de cada pagina, antes
+       del primer paint, y lo refresca main.js al redimensionar. Si no hay
+       variable (movil, o el script no llego a correr) vale 1 y no pasa nada. */
+    zoom: var(--escala-pagina, 1);
+}
+
+/* ANCHO DEL CONTENIDO
+   Bootstrap corta los containers en 1320px. Sobre el lienzo de 2300px que
+   fija la escala de pagina, eso dejaba casi un tercio del ancho en aire por
+   cada lado: el contenido se apelotonaba en el centro. Se ensancha, pero sin
+   pasarse — sigue centrado y con margen a los lados, que es lo que le da aire
+   al diseno.
+
+   Va solo a partir de 1200px, que es desde donde entra el escalado; por
+   debajo mandan los anchos de Bootstrap. Y va aqui, despues de cargar
+   bootstrap.min.css, para que gane por orden de cascada. */
+@media (min-width: 1200px) {
+    .container,
+    .container-sm,
+    .container-md,
+    .container-lg,
+    .container-xl,
+    .container-xxl {
+        max-width: 1520px;
+    }
 }
 
 a {

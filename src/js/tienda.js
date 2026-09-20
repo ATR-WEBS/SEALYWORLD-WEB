@@ -136,7 +136,11 @@ function actualizarUI() {
 function ajustarTamanoPanel() {
     const panel = document.getElementById('carrito-panel');
     if (!panel) return;
-    const zoom = parseFloat(document.documentElement.style.zoom) || 1;
+    // La escala vive en --escala-pagina desde que el zoom se movio del
+    // <html> al body (ver main.css). Leerla de style.zoom devolvia vacio
+    // y el panel dejaba de ajustarse.
+    const zoom = parseFloat(
+        document.documentElement.style.getPropertyValue('--escala-pagina')) || 1;
     if (zoom !== 1 && zoom > 0) {
         panel.style.width = window.innerWidth + 'px';
         panel.style.height = window.innerHeight + 'px';
