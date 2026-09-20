@@ -235,8 +235,8 @@ button { cursor: pointer; }
 [hidden] { display: none !important; }
 
 /* Con movimiento reducido se apagan las animaciones de la tienda. La
-   travesia queda fuera (body.is-intro): intro.js ya decide por su cuenta
-   si se muestra, y solo llega a tener esa clase cuando SI toca verla. */
+   travesia queda fuera (body.is-intro): se ve siempre, la pida el sistema
+   o no, y quien no la quiera la corta con Saltar o Escape. */
 @media (prefers-reduced-motion: reduce) {
   body:not(.is-intro) *,
   body:not(.is-intro) *::before,
@@ -244,5 +244,14 @@ button { cursor: pointer; }
     animation-duration: .001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: .001ms !important;
+  }
+
+  /* El cierre de la travesia tambien se anima: para cuando el telon se
+     funde y la tienda aparece, el body ya perdio .is-intro y la regla de
+     arriba se lo comeria. Mas especifica, asi que gana. */
+  body:not(.is-intro) .intro,
+  body:not(.is-intro) .intro *,
+  body:not(.is-intro) .page {
+    transition-duration: .7s !important;
   }
 }

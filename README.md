@@ -18,8 +18,10 @@ por servidor.
 ## La travesía
 
 La cortinilla de entrada (barco → isla → cofre → zoom → tienda) se ve
-**una vez por sesión**. Para volver a verla sin vaciar la sesión a mano,
-entra por `/#zarpar`.
+**en cada carga de la página**: no se guarda nada y no consulta
+`prefers-reduced-motion`, así que también corre en equipos con las
+animaciones del sistema desactivadas. Se corta con el botón **Saltar** o
+con **Escape**.
 
 - Los **tiempos** están todos en la tabla `GUION` de `assets/js/intro.js`.
 - El **aspecto** de cada tramo, en `assets/css/intro.css`.

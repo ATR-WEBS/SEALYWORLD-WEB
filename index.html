@@ -46,15 +46,79 @@
           <stop offset=".62" stop-color="#0d6f9c"/>
           <stop offset="1"   stop-color="#074f74"/>
         </linearGradient>
+        <!-- El mismo mar, pero anclado al lienzo (userSpaceOnUse) en vez de
+             a la caja de cada forma. Cualquier figura pintada con el cae
+             exactamente del color que el agua tiene a esa altura, asi que
+             se funde sin junta: es lo que permite recortar el casco con
+             "agua" sin que se vea la pieza que lo recorta. -->
+        <linearGradient id="g-sea-fixed" gradientUnits="userSpaceOnUse" x1="0" y1="560" x2="0" y2="900">
+          <stop offset="0"   stop-color="#35bcdb"/>
+          <stop offset=".22" stop-color="#1892bd"/>
+          <stop offset=".62" stop-color="#0d6f9c"/>
+          <stop offset="1"   stop-color="#074f74"/>
+        </linearGradient>
         <radialGradient id="g-sun" cx=".5" cy=".5" r=".5">
           <stop offset="0"   stop-color="#fff6c9" stop-opacity=".95"/>
           <stop offset=".45" stop-color="#ffe89a" stop-opacity=".38"/>
           <stop offset="1"   stop-color="#ffe89a" stop-opacity="0"/>
         </radialGradient>
         <linearGradient id="g-sand" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0"   stop-color="#fbe6b4"/>
-          <stop offset=".55" stop-color="#eecd8b"/>
-          <stop offset="1"   stop-color="#d9ab63"/>
+          <stop offset="0"   stop-color="#fdf2cd"/>
+          <stop offset=".34" stop-color="#f4dca1"/>
+          <stop offset=".7"  stop-color="#e3bf7c"/>
+          <stop offset="1"   stop-color="#c99a56"/>
+        </linearGradient>
+        <!-- Arena mojada: la franja que la ola acaba de lamer. Mas oscura
+             y mas saturada, que es justo lo que le pasa a la arena real. -->
+        <linearGradient id="g-sand-wet" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0"   stop-color="#d8b277"/>
+          <stop offset="1"   stop-color="#b98f52"/>
+        </linearGradient>
+        <!-- El bajio: la lengua de agua poco profunda que rodea la isla.
+             Anclado al lienzo para que case con el mar de fondo. Es lo que
+             hace que la isla se lea posada SOBRE un fondo de arena y no
+             recortada y pegada encima del azul. -->
+        <linearGradient id="g-shallow" gradientUnits="userSpaceOnUse" x1="0" y1="660" x2="0" y2="880">
+          <stop offset="0"   stop-color="#9df0ee" stop-opacity=".85"/>
+          <stop offset=".45" stop-color="#5fd3e4" stop-opacity=".7"/>
+          <stop offset="1"   stop-color="#2ba8cf" stop-opacity=".15"/>
+        </linearGradient>
+        <!-- La arena tal como se ve en la franja donde se apoya el cofre,
+             anclada al lienzo. Con ella se pinta el monton que le tapa el
+             canto inferior: al caer del mismo color que la playa, el monton
+             no se ve y lo que se lee es un cofre medio enterrado. Es el
+             mismo recurso que mete el casco del barco dentro del agua. -->
+        <radialGradient id="g-shadow" cx=".5" cy=".5" r=".5">
+          <stop offset="0"   stop-color="#6b4a16" stop-opacity=".42"/>
+          <stop offset=".55" stop-color="#6b4a16" stop-opacity=".2"/>
+          <stop offset="1"   stop-color="#6b4a16" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="g-sand-chest" gradientUnits="userSpaceOnUse" x1="0" y1="636" x2="0" y2="704">
+          <stop offset="0"   stop-color="#fcf0ca"/>
+          <stop offset=".55" stop-color="#f8e6b4"/>
+          <stop offset="1"   stop-color="#f2d89b"/>
+        </linearGradient>
+        <linearGradient id="g-trunk" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0"   stop-color="#5e3a1c"/>
+          <stop offset=".42" stop-color="#94643a"/>
+          <stop offset="1"   stop-color="#6b4423"/>
+        </linearGradient>
+        <linearGradient id="g-leaf" x1="0" y1="0" x2="1" y2=".4">
+          <stop offset="0"   stop-color="#3fb878"/>
+          <stop offset="1"   stop-color="#1c7d4c"/>
+        </linearGradient>
+        <linearGradient id="g-leaf-d" x1="0" y1="0" x2="1" y2=".4">
+          <stop offset="0"   stop-color="#2f9e63"/>
+          <stop offset="1"   stop-color="#14603a"/>
+        </linearGradient>
+        <linearGradient id="g-bush" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0"   stop-color="#46bd7f"/>
+          <stop offset="1"   stop-color="#1b7248"/>
+        </linearGradient>
+        <linearGradient id="g-iron" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0"   stop-color="#6d5a49"/>
+          <stop offset=".5"  stop-color="#43352a"/>
+          <stop offset="1"   stop-color="#241a13"/>
         </linearGradient>
         <linearGradient id="g-wood" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0"   stop-color="#a9723c"/>
@@ -76,9 +140,18 @@
           <stop offset="1"   stop-color="#0f5fd0"/>
         </linearGradient>
         <linearGradient id="g-beam" x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0"   stop-color="#9df1ff" stop-opacity=".8"/>
-          <stop offset=".55" stop-color="#bff6ff" stop-opacity=".28"/>
+          <stop offset="0"   stop-color="#9df1ff" stop-opacity=".55"/>
+          <stop offset=".55" stop-color="#bff6ff" stop-opacity=".24"/>
           <stop offset="1"   stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+        <!-- El volumen del casco. Va en un gradiente y no en dos manchas
+             con borde recto: esas dejaban dos costuras verticales cruzando
+             la madera de arriba abajo. -->
+        <linearGradient id="g-hull-shade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0"   stop-color="#2b1608" stop-opacity=".34"/>
+          <stop offset=".3"  stop-color="#2b1608" stop-opacity="0"/>
+          <stop offset=".74" stop-color="#ffd9a8" stop-opacity="0"/>
+          <stop offset="1"   stop-color="#ffd9a8" stop-opacity=".2"/>
         </linearGradient>
         <linearGradient id="g-hull" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0"   stop-color="#9c6836"/>
@@ -90,6 +163,144 @@
           <stop offset=".45" stop-color="#57c8f7" stop-opacity=".40"/>
           <stop offset="1"   stop-color="#57c8f7" stop-opacity="0"/>
         </radialGradient>
+
+        <!-- Borde algodonoso. El desenfoque engorda la silueta y la matriz
+             de color le devuelve el filo de golpe: lo que queda son cantos
+             redondeados y pegados unos a otros, que es como se recorta una
+             nube. Sobre texto convierte las letras en vapor. -->
+        <filter id="f-puff" x="-30%" y="-50%" width="160%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="b"/>
+          <feColorMatrix in="b" type="matrix"
+                         values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -10"/>
+        </filter>
+
+        <!-- PIEZAS REUTILIZABLES
+             Una hoja y un arbol, dibujados UNA vez y repetidos con <use>.
+             Las palmeras no son copias exactas: cada instancia entra con su
+             escala, su giro y su espejo, asi que la vegetacion se lee como
+             un bosquecillo y no como el mismo recorte pegado cinco veces. -->
+
+        <!-- La hoja apunta a +x desde su arranque; la corona la reparte a
+             base de rotate. El borde de abajo va dentado a proposito: una
+             hoja de palma lisa se lee como una mancha verde. -->
+        <g id="frond">
+          <path fill="url(#g-leaf)"
+                d="M0 0 C24 -17 60 -21 100 -8 C88 -3 76 0 64 3 C57 -1 51 -3 45 -3
+                   C40 1 34 4 27 6 C17 9 8 10 0 7 Z"/>
+          <path fill="none" stroke="#14603a" stroke-width="2.6" stroke-linecap="round" opacity=".55"
+                d="M2 2 C30 -1 66 -4 96 -6"/>
+        </g>
+        <g id="frond-d">
+          <path fill="url(#g-leaf-d)"
+                d="M0 0 C24 -17 60 -21 100 -8 C88 -3 76 0 64 3 C57 -1 51 -3 45 -3
+                   C40 1 34 4 27 6 C17 9 8 10 0 7 Z"/>
+          <path fill="none" stroke="#0e4b2d" stroke-width="2.6" stroke-linecap="round" opacity=".55"
+                d="M2 2 C30 -1 66 -4 96 -6"/>
+        </g>
+
+        <!-- Palmera completa, con la base del tronco en (0,0). El tronco es
+             un solo path que se estrecha al subir, con los anillos pintados
+             encima: dos piezas en vez de un tronco a trozos. -->
+        <g id="palm">
+          <!-- La sombra que el pie echa en el suelo. Va antes que nada para
+               quedar debajo del tronco. -->
+          <ellipse cx="0" cy="3" rx="24" ry="6.5" fill="#6b4a16" opacity=".26"/>
+          <path fill="url(#g-trunk)"
+                d="M-13 2 C-9 -40 -16 -86 -41 -128 C-47 -138 -41 -145 -31 -141
+                   C-4 -98 10 -46 13 2 Z"/>
+          <!-- Y el pie ensanchado. Un tronco rematado en corte recto se
+               clava en la arena como un poste; una palmera se abre en
+               raices antes de tocar el suelo. -->
+          <path fill="url(#g-trunk)"
+                d="M-13 -13 C-15 -6 -19 -1 -24 3 C-17 7 -8 8 0 7 C9 8 18 7 24 3
+                   C18 -1 14 -6 13 -13 Z"/>
+          <path fill="#54331a" opacity=".35"
+                d="M-13 -13 C-15 -6 -19 -1 -24 3 C-17 6 -11 7 -5 7 C-10 1 -13 -6 -13 -13 Z"/>
+          <g fill="none" stroke="#54331a" stroke-width="2.2" stroke-linecap="round" opacity=".45">
+            <path d="M-11 -14 C-4 -17 3 -17 11 -14"/>
+            <path d="M-13 -38 C-6 -41 2 -41 9 -37"/>
+            <path d="M-18 -62 C-11 -65 -3 -64 3 -60"/>
+            <path d="M-25 -86 C-19 -89 -12 -88 -6 -84"/>
+            <path d="M-33 -110 C-27 -113 -21 -112 -16 -108"/>
+          </g>
+          <g transform="translate(-36 -136)">
+            <use href="#frond"   transform="rotate(-152) scale(1.06)"/>
+            <use href="#frond-d" transform="rotate(-112) scale(.96)"/>
+            <use href="#frond"   transform="rotate(-64)  scale(.9)"/>
+            <use href="#frond-d" transform="rotate(-16)"/>
+            <use href="#frond"   transform="rotate(30)   scale(.93)"/>
+            <use href="#frond-d" transform="rotate(74)   scale(.8)"/>
+            <use href="#frond"   transform="rotate(196)  scale(.86)"/>
+            <circle r="7.5" fill="#14603a"/>
+            <circle cx="-9" cy="11" r="6.5" fill="#c9752f"/>
+            <circle cx="4"  cy="14" r="6"   fill="#a9591b"/>
+            <circle cx="-2" cy="4"  r="5.5" fill="#d8853c"/>
+          </g>
+        </g>
+
+        <!-- Moneda de canto: dos elipses, una oscura desplazada bajo la
+             otra. Ese par es todo el truco del grosor; con una sola, la
+             moneda se lee como una pegatina redonda. -->
+        <g id="coin">
+          <ellipse cy="3.5" rx="16" ry="7" fill="#a8741a"/>
+          <ellipse rx="16" ry="7" fill="#f0bf4a"/>
+          <ellipse rx="9.5" ry="3.8" fill="#ffe08a" opacity=".85"/>
+          <ellipse cx="-4.5" cy="-1.6" rx="4" ry="1.6" fill="#fff6d0" opacity=".85"/>
+        </g>
+        <!-- Moneda de cara, para que el monton no sea todo cantos. -->
+        <g id="coin-face">
+          <circle cy="2.5" r="12.5" fill="#a8741a"/>
+          <circle r="12.5" fill="#f0bf4a"/>
+          <circle r="7.5" fill="#e0a62c" opacity=".55"/>
+          <path d="M-6 -6 A8.5 8.5 0 0 1 2 -9" fill="none" stroke="#fff6d0" stroke-width="2.6"
+                stroke-linecap="round" opacity=".85"/>
+        </g>
+        <!-- Gema tallada. Las caras van como facetas de distinto tono en vez
+             de un rombo plano con borde: una piedra preciosa es luz partida,
+             no una silueta rellena. -->
+        <g id="gem">
+          <path d="M0 -21 L11 -9 L0 15 L-11 -9 Z" fill="#2f9bef"/>
+          <path d="M0 -21 L11 -9 L0 -4 Z" fill="#9fe9ff"/>
+          <path d="M0 -21 L-11 -9 L0 -4 Z" fill="#5cc4ff"/>
+          <path d="M11 -9 L0 -4 L0 15 Z" fill="#1568c9"/>
+          <path d="M-11 -9 L0 -4 L0 15 Z" fill="#0d4a9e"/>
+          <path d="M-6.5 -13 L-2 -17.5 L0.5 -13.5 L-4 -9.5 Z" fill="#ffffff" opacity=".8"/>
+        </g>
+
+        <!-- Piedra, con su sombra de contacto incorporada. Va definida una
+             sola vez justamente por eso: repartidas a mano, tarde o
+             temprano una se queda sin sombra y se pone a flotar. -->
+        <g id="rock">
+          <ellipse cx="3"  cy="5"  rx="34" ry="11" fill="#6b4a16" opacity=".26"/>
+          <ellipse cx="0"  cy="0"  rx="32" ry="15" fill="#8b7c64"/>
+          <ellipse cx="-4" cy="-5" rx="26" ry="11" fill="#ab9c81"/>
+          <ellipse cx="-8" cy="-8" rx="15" ry="6"  fill="#c4b79d" opacity=".8"/>
+        </g>
+
+        <!-- Mata de hierba: un abanico de briznas desde un mismo punto. -->
+        <g id="tuft" fill="none" stroke-linecap="round">
+          <path d="M0 0 C-4 -14 -12 -24 -22 -31" stroke="#1b7248" stroke-width="4"/>
+          <path d="M0 0 C-2 -16 -5 -28 -10 -38"  stroke="#279059" stroke-width="4"/>
+          <path d="M0 0 C1 -16 2 -30 1 -42"      stroke="#38ad6c" stroke-width="4"/>
+          <path d="M0 0 C3 -15 8 -27 15 -36"     stroke="#279059" stroke-width="4"/>
+          <path d="M0 0 C6 -12 14 -21 24 -27"    stroke="#1b7248" stroke-width="4"/>
+        </g>
+
+        <!-- Arbusto. UNA silueta con lobulos, no tres circulos apilados: a
+             poco que crezcan, los circulos se leen como circulos. -->
+        <g id="bush">
+          <path fill="url(#g-bush)"
+                d="M-46 6 C-59 -1 -62 -18 -51 -27 C-56 -41 -43 -53 -28 -50
+                   C-25 -63 -8 -69 4 -60 C15 -71 33 -68 39 -56 C55 -57 66 -42 59 -28
+                   C69 -19 66 -3 54 3 C30 11 -22 12 -46 6 Z"/>
+          <path fill="#63d094" opacity=".42"
+                d="M-29 -48 C-18 -61 0 -65 11 -56 C-4 -54 -18 -46 -27 -35
+                   C-31 -39 -31 -44 -29 -48 Z"/>
+          <path fill="#63d094" opacity=".28"
+                d="M15 -63 C29 -67 43 -58 45 -46 C37 -57 27 -61 15 -63 Z"/>
+          <path fill="#0f5233" opacity=".26"
+                d="M41 -52 C59 -46 67 -27 58 -13 C61 -30 54 -42 39 -48 Z"/>
+        </g>
       </defs>
 
       <!-- CAMARA
@@ -129,6 +340,46 @@
           <path d="M500 268 q12 -11 24 0 q12 -11 24 0"/>
         </g>
 
+        <!-- EL ROTULO EN EL CIELO
+             Va aqui, entre las gaviotas y el mar, a proposito: pintado al
+             final quedaria por delante de las palmeras y del barco, y una
+             nube que tapa una palmera deja de leerse como nube.
+             El giro va en un grupo de dentro y la deriva en el de fuera:
+             en SVG la propiedad CSS transform PISA al atributo transform,
+             asi que compartirlos borraria la inclinacion. -->
+        <g id="skyword">
+          <!-- El translate recoloca el rotulo entero; el rotate le da la
+               inclinacion. Van juntos en el mismo atributo porque el
+               grupo de fuera ya gasta su transform en la deriva. -->
+          <g transform="translate(-46 26) rotate(-9 688 152)">
+
+            <!-- El banco de nube que lo sostiene. -->
+            <g fill="#ffffff" opacity=".4">
+              <ellipse cx="556" cy="98"  rx="62" ry="29"/>
+              <ellipse cx="656" cy="74"  rx="88" ry="38"/>
+              <ellipse cx="768" cy="88"  rx="70" ry="31"/>
+              <ellipse cx="840" cy="112" rx="50" ry="23"/>
+              <ellipse cx="596" cy="192" rx="68" ry="29"/>
+              <ellipse cx="714" cy="208" rx="92" ry="33"/>
+              <ellipse cx="822" cy="194" rx="56" ry="25"/>
+            </g>
+
+            <g text-anchor="middle" letter-spacing="9" font-weight="600"
+               font-family="Fredoka, 'Trebuchet MS', system-ui, sans-serif">
+              <!-- Primero el vapor, luego la letra encima: el halo es el
+                   mismo texto pasado por el filtro. -->
+              <g filter="url(#f-puff)" fill="#ffffff" opacity=".55">
+                <text x="688" y="116" font-size="88">SEALY</text>
+                <text x="688" y="204" font-size="88">WORLD</text>
+              </g>
+              <g fill="#ffffff" opacity=".95">
+                <text x="688" y="116" font-size="88">SEALY</text>
+                <text x="688" y="204" font-size="88">WORLD</text>
+              </g>
+            </g>
+          </g>
+        </g>
+
         <!-- Mar -->
         <rect x="0" y="560" width="1600" height="340" fill="url(#g-sea)"/>
         <!-- Bruma en el horizonte: sin ella el agua arranca de golpe y la
@@ -137,134 +388,613 @@
         <rect x="0" y="556" width="1600" height="24" fill="#9fe0ea" opacity=".55"/>
         <ellipse cx="1285" cy="618" rx="150" ry="16" fill="#ffeaa7" opacity=".35"/>
 
-        <!-- ISLA -->
+        <!-- LA ISLA
+             Se extiende de babor a estribor y se sale del plano por la
+             derecha: eso es lo que la hace leer como una isla y no como un
+             monton de arena en mitad del cuadro. De atras a adelante van el
+             bajio, la espuma, la colina, la arena, la vegetacion y por
+             ultimo el cofre, que es adonde termina apuntando todo. -->
         <g id="island">
-          <ellipse cx="800" cy="762" rx="330" ry="34" fill="#053f60" opacity=".4"/>
-          <ellipse cx="800" cy="752" rx="314" ry="30" fill="#c6f1f8" opacity=".8"/>
-          <path d="M498 752 Q548 686 640 668 Q712 612 800 606 Q892 612 962 668 Q1054 686 1102 752 Z" fill="url(#g-sand)"/>
-          <path d="M640 668 Q712 612 800 606 Q892 612 962 668 Q880 648 800 644 Q720 648 640 668 Z" fill="#fff2cd" opacity=".65"/>
 
-          <!-- Palmeras. Se mecen desde la base del tronco. -->
-          <g class="palm palm--l">
-            <path d="M662 678 Q646 616 620 576 L640 570 Q668 614 680 676 Z" fill="#7a5128"/>
-            <g fill="#2f9e63">
-              <path d="M628 576 Q572 554 544 576 Q584 546 632 564 Z"/>
-              <path d="M628 572 Q588 524 544 518 Q598 510 636 560 Z"/>
-              <path d="M630 570 Q638 516 678 490 Q654 538 640 572 Z"/>
-              <path d="M634 574 Q684 538 728 550 Q682 554 642 582 Z"/>
-              <path d="M632 580 Q678 594 698 626 Q660 600 628 588 Z"/>
-            </g>
-            <circle cx="631" cy="574" r="9" fill="#1f7a4a"/>
-            <circle cx="646" cy="590" r="7" fill="#c9752f"/>
-            <circle cx="634" cy="596" r="6" fill="#b9661f"/>
-          </g>
-          <g class="palm palm--r">
-            <path d="M940 684 Q958 624 986 586 L1002 596 Q970 632 958 684 Z" fill="#7a5128"/>
-            <g fill="#35ab6c">
-              <path d="M992 590 Q1048 566 1078 588 Q1036 560 988 578 Z"/>
-              <path d="M992 586 Q1034 540 1076 536 Q1024 524 986 572 Z"/>
-              <path d="M990 584 Q980 532 942 508 Q966 554 980 586 Z"/>
-              <path d="M986 588 Q938 554 896 568 Q940 570 978 598 Z"/>
-              <path d="M990 594 Q944 610 926 642 Q962 614 994 602 Z"/>
-            </g>
-            <circle cx="989" cy="588" r="9" fill="#238552"/>
-            <circle cx="975" cy="604" r="7" fill="#c9752f"/>
+          <!-- El bajio. El agua sobre arena es clara; esta lengua es lo que
+               da a entender que la isla CONTINUA bajo el mar en vez de estar
+               recortada y pegada sobre el azul. -->
+          <path fill="url(#g-shallow)"
+                d="M656 826 C716 776 786 738 862 706 C946 670 1024 640 1104 622
+                   C1188 604 1268 606 1344 596 C1428 584 1520 570 1600 566
+                   L1600 900 L656 900 Z"/>
+
+          <!-- Espuma de orilla: el filo donde rompe. -->
+          <path fill="#dff7fb" opacity=".8"
+                d="M676 818 C740 770 810 734 884 704 C964 670 1040 644 1118 628
+                   C1200 610 1278 614 1354 604 C1436 592 1522 580 1600 576
+                   L1600 608 C1524 612 1442 622 1360 634 C1284 645 1206 642 1126 658
+                   C1050 673 976 698 898 732 C826 764 758 800 700 844 Z"/>
+
+          <!-- LA LADERA. Tierra alta cubierta de vegetacion: sin un segundo
+               plano la isla es una duna y punto. Sube hasta por encima del
+               horizonte y se corre a babor a proposito, para pasar POR
+               DETRAS del cofre: recortado contra el mar, el cofre se leia
+               pegado encima del dibujo por mucha sombra que se le pusiera.
+               Un objeto se mete en un paisaje cuando tiene paisaje detras. -->
+          <path fill="#14573a"
+                d="M912 736 C976 626 1062 522 1176 478 C1290 434 1402 444 1494 470
+                   C1552 486 1580 502 1600 514 L1600 760 L912 760 Z"/>
+          <path fill="#1c6f4a"
+                d="M968 730 C1028 634 1106 544 1210 504 C1314 464 1410 476 1488 500
+                   C1546 518 1578 530 1600 540 L1600 750 L968 750 Z"/>
+          <path fill="#2a8a5c"
+                d="M1026 722 C1080 648 1150 574 1240 540 C1328 506 1408 518 1478 540
+                   C1536 558 1572 568 1600 576 L1600 740 L1026 740 Z"/>
+
+          <!-- Copas de la ladera. Una cresta ondulada continua, no circulos
+               sueltos: a este tamano cada circulo se ve como lo que es. -->
+          <path fill="#175f3f"
+                d="M1014 668 C1026 634 1050 608 1078 602 C1090 570 1120 548 1150 556
+                   C1160 522 1196 500 1228 510 C1242 480 1278 466 1308 478
+                   C1326 452 1362 446 1384 462 C1404 444 1440 450 1452 472
+                   C1478 460 1510 472 1520 494 C1544 486 1572 496 1584 516
+                   C1592 512 1598 518 1600 526 L1600 700 L1014 700 Z"/>
+          <path fill="#22794f"
+                d="M1036 676 C1048 648 1070 628 1096 624 C1108 596 1136 578 1164 586
+                   C1176 556 1210 538 1240 548 C1256 522 1290 510 1318 522
+                   C1336 500 1370 496 1390 512 C1412 498 1444 504 1454 524
+                   C1480 514 1508 524 1518 544 C1546 538 1572 548 1584 566
+                   L1600 572 L1600 700 L1036 700 Z"/>
+          <path fill="#3fae78" opacity=".45"
+                d="M1098 624 C1112 600 1140 586 1164 592 C1146 598 1126 610 1112 630 Z
+                   M1242 548 C1258 526 1288 516 1310 526 C1288 530 1266 540 1252 558 Z
+                   M1392 512 C1414 500 1442 506 1452 524 C1434 512 1412 508 1392 512 Z
+                   M1520 544 C1542 536 1566 544 1578 562 C1560 548 1540 542 1520 544 Z"/>
+
+          <!-- ARENA. Un solo contorno para toda la playa: las luces y las
+               sombras de despues van pintadas DENTRO de el, no cosidas a su
+               lado, que es lo que antes hacia que se vieran las juntas. -->
+          <path fill="url(#g-sand)"
+                d="M684 824 C748 778 818 742 892 712 C970 680 1044 654 1122 638
+                   C1202 622 1280 628 1356 618 C1438 607 1522 596 1600 592
+                   L1600 890 L684 890 Z"/>
+
+          <!-- Luz en la cresta: el sol pega arriba y la arena se aclara. -->
+          <path fill="#fff6d8" opacity=".6"
+                d="M700 822 C762 778 830 744 902 716 C978 686 1050 662 1128 646
+                   C1206 630 1282 636 1358 626 C1440 615 1522 604 1600 600
+                   L1600 636 C1524 640 1444 650 1364 662 C1288 673 1212 668 1136 684
+                   C1060 700 990 724 916 754 C844 783 776 818 720 856 Z"/>
+
+          <!-- Sombra al pie de la loma: sin esto la playa es plana. -->
+          <g fill="#a97f42" opacity=".26">
+            <path d="M780 790 C866 748 946 710 1030 684 C1096 663 1160 654 1224 654
+                     C1156 670 1092 686 1026 714 C948 747 872 784 806 818 Z"/>
+            <path d="M1300 648 C1372 640 1440 630 1512 622 C1552 617 1580 616 1600 617
+                     L1600 656 C1552 654 1500 658 1444 666 C1390 673 1342 672 1296 666 Z"/>
           </g>
 
-          <!-- Piedras al pie -->
-          <ellipse cx="560" cy="740" rx="34" ry="17" fill="#9a8a70"/>
-          <ellipse cx="556" cy="735" rx="28" ry="12" fill="#b6a68c"/>
-          <ellipse cx="1048" cy="734" rx="26" ry="13" fill="#9a8a70"/>
-          <ellipse cx="1044" cy="730" rx="21" ry="9" fill="#b6a68c"/>
+          <!-- Arena mojada: la franja que la ola acaba de lamer. Cierra el
+               encuentro entre la playa y el agua. -->
+          <path fill="url(#g-sand-wet)" opacity=".7"
+                d="M690 830 C752 790 818 758 888 730 C954 704 1014 684 1074 670
+                   C1008 694 942 722 876 756 C808 792 744 830 704 866 Z"/>
+
+          <!-- VEGETACION DE CRESTA
+               Va justo bajo el borde de la arena, en un verde mas apagado
+               que las palmeras: la distancia desatura. Lo de delante se
+               recorta contra ella. -->
+          <path fill="#1f8455" opacity=".9"
+                d="M918 710 C990 678 1058 656 1130 642 C1206 627 1282 632 1356 622
+                   C1438 611 1522 600 1600 596 L1600 624 C1524 628 1444 638 1362 650
+                   C1286 661 1212 656 1138 670 C1068 684 1002 706 936 736 Z"/>
+
+          <g>
+            <use href="#tuft" transform="translate(944 726) scale(.82)"/>
+            <use href="#tuft" transform="translate(1006 700) scale(.92)"/>
+            <use href="#tuft" transform="translate(1078 678) scale(.78)"/>
+            <use href="#tuft" transform="translate(1210 662) scale(.86)"/>
+            <use href="#tuft" transform="translate(1318 646) scale(.74)"/>
+            <use href="#tuft" transform="translate(1436 632) scale(.8)"/>
+            <use href="#tuft" transform="translate(1540 620) scale(.7)"/>
+            <use href="#tuft" transform="translate(880 754) scale(.7)"/>
+          </g>
+
+          <g>
+            <use href="#bush" transform="translate(1268 664) scale(.82)"/>
+            <use href="#bush" transform="translate(1392 640) scale(.66)"/>
+            <use href="#bush" transform="translate(968 716) scale(.72)"/>
+            <use href="#bush" transform="translate(1510 626) scale(.58)"/>
+          </g>
+
+          <!-- Macizo al pie de la ladera. Cierra el hueco entre el verde y la
+               arena justo por donde asoma el cofre, para que no quede un filo
+               limpio a su espalda.
+               Cada pieza se apoya POR DEBAJO de la linea de la cresta: unos
+               pocos pixeles por encima y el arbusto se queda flotando, que es
+               lo que delata al ojo antes que ninguna otra cosa. Y va antes que
+               las palmeras, para que los troncos le pasen por delante en vez
+               de quedar atravesados por un matorral. -->
+          <g>
+            <use href="#bush" transform="translate(1016 672) scale(.8)"/>
+            <use href="#bush" transform="translate(1072 656) scale(.88)"/>
+            <use href="#bush" transform="translate(1246 632) scale(.9)"/>
+            <use href="#bush" transform="translate(1318 628) scale(.76)"/>
+            <use href="#tuft" transform="translate(1046 668) scale(.9)"/>
+            <use href="#tuft" transform="translate(1284 630) scale(.85)"/>
+          </g>
+
+          <!-- Palmeras del fondo: algo lavadas y mas atras, para que la isla
+               tenga profundidad y no dos arboles sueltos. Como el resto de
+               la vegetacion, arraigan POR DEBAJO de la linea de la cresta:
+               por encima el pie del tronco se queda al aire sobre el verde
+               de la ladera y el arbol entero se lee flotando. -->
+          <g class="palm palm--far1"><use href="#palm" transform="translate(1556 652) scale(1.5)" opacity=".9"/></g>
+          <g class="palm palm--far2"><use href="#palm" transform="translate(1360 648) scale(1.2) scale(-1 1)" opacity=".85"/></g>
+
+          <!-- Palmeras principales. Crecidas al triple: a este tamano dejan
+               de ser adorno y pasan a dar la escala de la isla, asi que van
+               recolocadas: arraigan mas abajo en la playa, en primer
+               termino, porque con las bases donde estaban las coronas se
+               salian del encuadre por arriba. No mas abajo, eso si: pasada
+               la linea de la rompiente (y 786) el pie del tronco queda
+               tapado por la ola y la palmera parece nacer del mar.
+               Cada una se mece a su ritmo. -->
+          <g class="palm palm--l"><use href="#palm" transform="translate(952 742) scale(2.4)"/></g>
+          <g class="palm palm--r"><use href="#palm" transform="translate(1444 716) scale(2.2) scale(-1 1)"/></g>
+          <g class="palm palm--m"><use href="#palm" transform="translate(1272 730) scale(2.0)"/></g>
+
+          <!-- Detalle al pie: tronco varado, piedras y cocos caidos. Son los
+               que le dan escala a la playa. -->
+          <g>
+            <path d="M756 800 C798 786 852 780 900 786 L898 800 C850 794 800 798 758 814 Z" fill="#7a5128" opacity=".9"/>
+            <ellipse cx="900" cy="793" rx="8" ry="9" fill="#a9723c"/>
+            <g fill="none" stroke="#5e3a1c" stroke-width="2" opacity=".5">
+              <path d="M800 792 L798 806"/><path d="M846 786 L845 800"/>
+            </g>
+          </g>
+
+          <!-- Todas por DEBAJO de la linea de la cresta, como el resto de
+               lo que se apoya en el suelo. -->
+          <g>
+            <use href="#rock" transform="translate(712 828) scale(1.25)"/>
+            <use href="#rock" transform="translate(1046 726) scale(.85)"/>
+            <use href="#rock" transform="translate(1496 678) scale(.72)"/>
+          </g>
+
+          <g fill="#a9591b">
+            <circle cx="968" cy="756" r="9"/><circle cx="992" cy="764" r="7.5"/>
+            <circle cx="1238" cy="694" r="8"/>
+          </g>
+          <g fill="#c9752f" opacity=".7">
+            <circle cx="965" cy="753" r="4"/><circle cx="990" cy="761" r="3.4"/>
+            <circle cx="1235" cy="691" r="3.6"/>
+          </g>
 
           <!-- EL COFRE
-               Punto de fuga de toda la cortinilla: la camara termina
-               metida justo aqui, en (806, 612). Si mueves el cofre, mueve
-               tambien ese punto en intro.js o el zoom apuntara a la arena. -->
-          <g id="chest">
-            <ellipse cx="806" cy="668" rx="104" ry="16" fill="#c09a58" opacity=".55"/>
+               Punto de fuga de toda la cortinilla: la camara termina metida
+               justo en la boca, en (1130, 613). Si mueves el cofre o cambias su
+                 escala, mueve
+               tambien ese punto en intro.js o el zoom apuntara a la arena.
+               Va dibujado alrededor de su propio (0,0) y colocado con un
+               transform: asi se recoloca cambiando dos numeros y no las
+               cuarenta coordenadas de dentro. -->
+          <g id="chest" transform="translate(1130 632) scale(.66)">
+
+            <defs>
+              <!-- Los contornos de la caja y de la tapa, repetidos como
+                   recorte. Todo lo de dentro (duelas, zunchos, remaches) se
+                   recorta contra ellos: asi los herrajes curvan con la tapa
+                   en vez de asomar por encima como dos orejas. -->
+              <clipPath id="clip-body"><path d="M-98 -14 L98 -14 L88 68 Q0 86 -88 68 Z"/></clipPath>
+              <clipPath id="clip-lid"><path d="M-99 -10 L-99 -50 Q0 -112 99 -50 L99 -10 Z"/></clipPath>
+            </defs>
+
+            <!-- La sombra que el cofre echa en la arena: una mancha caida a
+                 babor, porque el sol pega de estribor. Va con relleno
+                 degradado (g-shadow) y no plano: una elipse de color liso
+                 deja siempre un aro en el borde, y ese aro es justo lo que
+                 convierte al cofre en un objeto puesto sobre un pedestal. -->
+            <ellipse cx="-56" cy="70" rx="168" ry="42" fill="url(#g-shadow)"/>
+            <ellipse cx="0"   cy="66" rx="104" ry="26" fill="url(#g-shadow)"/>
 
             <!-- Resplandor que escapa al abrirse -->
-            <circle id="chestHalo" cx="806" cy="596" r="190" fill="url(#g-halo)" opacity="0"/>
+            <circle id="chestHalo" cx="0" cy="-10" r="205" fill="url(#g-halo)" opacity="0"/>
 
             <!-- BOCA DEL COFRE
-                 Va dibujada por ENCIMA del borde superior del cuerpo (y=606)
-                 y por DEBAJO de la tapa cerrada: es la franja que queda al
-                 descubierto cuando la tapa se levanta. Si la metes dentro
-                 del cuerpo, el frontal la tapa y el cofre se abre a nada. -->
+                 Va por ENCIMA del borde superior del cuerpo y por DEBAJO de
+                 la tapa cerrada: es la franja que queda al descubierto
+                 cuando la tapa se levanta. Va por encima del canto del cuerpo
+                 (y -14): a su misma altura, el frontal se la come y el
+                 cofre se abre a nada. -->
             <g id="chestInside">
-              <path d="M724 584 L888 584 L884 608 L728 608 Z" fill="#2c1709"/>
-              <path d="M724 584 L888 584 L886 592 L726 592 Z" fill="#160b04"/>
-              <g fill="url(#g-gem)" stroke="#0c4f9e" stroke-width="2.5">
-                <path d="M748 600 l15 -14 15 14 -15 22 z"/>
-                <path d="M786 594 l19 -18 19 18 -19 28 z"/>
-                <path d="M834 602 l14 -13 14 13 -14 20 z"/>
+              <path d="M-95 -46 L95 -46 L88 -12 L-88 -12 Z" fill="#2a1508"/>
+              <path d="M-95 -46 L95 -46 L92 -34 L-92 -34 Z" fill="#150a03"/>
+
+              <!-- Sombra del fondo: sin ella el monton flota dentro de la
+                   caja en vez de apoyarse en ella. -->
+              <path d="M-92 -46 L92 -46 L86 -36 C40 -28 -40 -28 -86 -36 Z" fill="#0d0502" opacity=".55"/>
+
+              <!-- El haz va DETRAS del tesoro y con la base a la altura del
+                   canto del cuerpo (y -14), donde el frontal la oculta.
+                   Por delante lavaba el oro entero; con la base mas arriba,
+                   su borde recto decapitaba las gemas con una linea. -->
+              <path id="chestBeam" d="M-88 -14 L88 -14 L194 -366 L-194 -366 Z" fill="url(#g-beam)" opacity="0"/>
+
+              <!-- EL TESORO
+                   Tres capas: monedas al fondo, gemas entre ellas y mas
+                   monedas por delante. Nada va derecho ni a la misma
+                   altura: cada pieza entra con su giro y su tamano, que es
+                   lo que separa un monton de un mosaico de calcomanias. -->
+              <g>
+                <use href="#coin" transform="translate(-72 -30) scale(.78) rotate(-6)"/>
+                <use href="#coin" transform="translate(-46 -33) scale(.72) rotate(4)"/>
+                <use href="#coin" transform="translate(-18 -31) scale(.8)  rotate(-9)"/>
+                <use href="#coin" transform="translate(12 -33)  scale(.72) rotate(7)"/>
+                <use href="#coin" transform="translate(42 -31)  scale(.76) rotate(-4)"/>
+                <use href="#coin" transform="translate(70 -30)  scale(.8)  rotate(8)"/>
+                <use href="#coin-face" transform="translate(-60 -27) scale(.62) rotate(-14)"/>
+                <use href="#coin-face" transform="translate(28 -28)  scale(.58) rotate(11)"/>
               </g>
-              <path id="chestBeam" d="M732 592 L880 592 L978 300 L634 300 Z" fill="url(#g-beam)" opacity="0"/>
+
+              <g>
+                <use href="#gem" transform="translate(-52 -26) scale(.92) rotate(-13)"/>
+                <use href="#gem" transform="translate(6 -29)   scale(1.12) rotate(5)"/>
+                <use href="#gem" transform="translate(56 -25)  scale(.82) rotate(-7)"/>
+              </g>
+
+              <g>
+                <use href="#coin" transform="translate(-78 -18) scale(.9)  rotate(7)"/>
+                <use href="#coin" transform="translate(-34 -16) scale(.96) rotate(-5)"/>
+                <use href="#coin" transform="translate(22 -17)  scale(.88) rotate(9)"/>
+                <use href="#coin" transform="translate(68 -16)  scale(.92) rotate(-8)"/>
+                <use href="#coin-face" transform="translate(-6 -19) scale(.7) rotate(16)"/>
+              </g>
+
             </g>
 
-            <!-- Cuerpo -->
-            <path d="M720 606 L892 606 L884 664 Q806 676 728 664 Z" fill="url(#g-wood)"/>
-            <rect x="726" y="626" width="160" height="9" fill="url(#g-gold)" opacity=".8"/>
-            <rect x="792" y="606" width="28" height="58" fill="url(#g-gold)"/>
-            <circle cx="806" cy="634" r="10" fill="#ffe08a" stroke="#9a6a12" stroke-width="2.5"/>
+            <!-- CUERPO
+                 Las duelas, los herrajes y los remaches van todos DENTRO del
+                 mismo contorno, no apilados a su lado: por eso el cofre se
+                 lee como un bloque de madera y no como tablas sueltas. -->
+            <g id="chestBody">
+              <path d="M-98 -14 L98 -14 L88 68 Q0 86 -88 68 Z" fill="url(#g-wood)"/>
+
+              <g clip-path="url(#clip-body)">
+              <!-- Juntas entre duelas -->
+              <g fill="none" stroke="#4e2c12" stroke-width="2.4" opacity=".5">
+                <path d="M-62 -12 L-57 70"/>
+                <path d="M-26 -12 L-24 79"/>
+                <path d="M26 -12 L24 79"/>
+                <path d="M62 -12 L57 70"/>
+              </g>
+
+              <!-- Canto superior: el grosor de la madera. -->
+              <path d="M-98 -14 L98 -14 L96 -2 L-96 -2 Z" fill="#8a5629"/>
+              <path d="M-98 -14 L98 -14 L97 -8 L-97 -8 Z" fill="#2a1508" opacity=".65"/>
+
+              <!-- Zunchos de hierro, uno por costado. -->
+              <g fill="url(#g-iron)">
+                <path d="M-92 -14 L-70 -14 L-64 72 L-86 68 Z"/>
+                <path d="M92 -14 L70 -14 L64 72 L86 68 Z"/>
+              </g>
+              <rect x="-96" y="26" width="192" height="13" fill="url(#g-iron)" opacity=".92"/>
+              <rect x="-96" y="26" width="192" height="4"  fill="#8b7462" opacity=".5"/>
+
+              <!-- Remaches. Pequenos y muchos: es el detalle que convence. -->
+              <g fill="#8b7462">
+                <circle cx="-81" cy="4"  r="3.4"/><circle cx="-79" cy="32" r="3.4"/><circle cx="-76" cy="60" r="3.4"/>
+                <circle cx="81"  cy="4"  r="3.4"/><circle cx="79"  cy="32" r="3.4"/><circle cx="76"  cy="60" r="3.4"/>
+                <circle cx="-40" cy="32" r="3.2"/><circle cx="40"  cy="32" r="3.2"/>
+              </g>
+              </g>
+
+              <!-- Cierre y bocallave -->
+              <path d="M-19 -14 L19 -14 L17 56 L-17 56 Z" fill="url(#g-gold)"/>
+              <path d="M-19 -14 L19 -14 L18 -6 L-18 -6 Z" fill="#ffe9a8" opacity=".8"/>
+              <circle cx="0" cy="22" r="13" fill="#f6c95a" stroke="#8a5f12" stroke-width="2.6"/>
+              <path d="M0 16 a5 5 0 1 1 -0.1 0 M-3 22 L-4 34 L4 34 L3 22 Z" fill="#6b4a0e"/>
+
+              <!-- Pie: refuerzo de la base -->
+              <path d="M-88 66 Q0 84 88 66 L86 74 Q0 92 -86 74 Z" fill="url(#g-iron)" opacity=".85"/>
+            </g>
 
             <!-- TAPA
-                 Gira sobre su canto inferior izquierdo y ademas se aplasta
-                 en vertical: ese scaleY es el escorzo, lo que hace que se
-                 lea como una tapa abatida hacia atras y no como una tabla
-                 despegada. transform-box: fill-box (en intro.css) mide el
-                 origen contra la propia tapa y no contra el viewBox. -->
+                 Gira sobre su canto inferior izquierdo y ademas se aplasta en
+                 vertical: ese scaleY es el escorzo, lo que la hace leer como
+                 una tapa abatida hacia atras y no como una tabla despegada.
+                 transform-box: fill-box (en intro.css) mide el origen contra
+                 la propia tapa y no contra el viewBox. -->
             <g id="chestLid">
-              <path d="M720 608 L720 580 Q806 530 892 580 L892 608 Z" fill="url(#g-woodlid)"/>
-              <path d="M730 584 Q806 542 882 584 Q806 562 730 584 Z" fill="#d79e5c" opacity=".5"/>
-              <path d="M720 596 Q806 552 892 596 L892 608 L720 608 Z" fill="url(#g-gold)" opacity=".85"/>
-              <rect x="792" y="560" width="28" height="48" fill="url(#g-gold)"/>
+              <path d="M-99 -10 L-99 -50 Q0 -112 99 -50 L99 -10 Z" fill="url(#g-woodlid)"/>
+
+              <g clip-path="url(#clip-lid)">
+              <!-- Duelas de la tapa, curvadas como ella. -->
+              <g fill="none" stroke="#6b3f18" stroke-width="2.4" opacity=".45">
+                <path d="M-62 -14 Q-58 -52 -38 -74"/>
+                <path d="M-24 -14 Q-24 -60 -14 -88"/>
+                <path d="M26 -14 Q26 -60 16 -88"/>
+                <path d="M64 -14 Q60 -52 40 -74"/>
+              </g>
+              <path d="M-84 -36 Q0 -92 84 -36 Q0 -70 -84 -36 Z" fill="#e0b478" opacity=".5"/>
+
+              <!-- Zunchos: siguen el arco, como en el cuerpo. -->
+              <g fill="none" stroke="url(#g-iron)" stroke-width="15">
+                <path d="M-84 -12 Q-78 -50 -54 -70"/>
+                <path d="M84 -12 Q78 -50 54 -70"/>
+              </g>
+              <path d="M-99 -22 Q0 -80 99 -22 L99 -10 L-99 -10 Z" fill="url(#g-iron)" opacity=".95"/>
+              <path d="M-99 -22 Q0 -80 99 -22 L99 -19 L-99 -19 Z" fill="#8b7462" opacity=".45"/>
+              <g fill="#8b7462">
+                <circle cx="-79" cy="-22" r="3.2"/><circle cx="-62" cy="-56" r="3.2"/>
+                <circle cx="79"  cy="-22" r="3.2"/><circle cx="62"  cy="-56" r="3.2"/>
+              </g>
+              </g>
+              <path d="M-19 -14 L19 -14 L19 -56 L-19 -56 Z" fill="url(#g-gold)"/>
+              <path d="M-19 -56 L19 -56 L17 -50 L-17 -50 Z" fill="#ffe9a8" opacity=".85"/>
             </g>
 
             <!-- Destellos que saltan del cofre -->
             <g id="chestSparks" fill="#eafcff" opacity="0">
-              <path class="spark spark--1" d="M700 566 l7 -16 7 16 16 7 -16 7 -7 16 -7 -16 -16 -7 z"/>
-              <path class="spark spark--2" d="M898 592 l6 -13 6 13 13 6 -13 6 -6 13 -6 -13 -13 -6 z"/>
-              <path class="spark spark--3" d="M806 512 l8 -18 8 18 18 8 -18 8 -8 18 -8 -18 -18 -8 z"/>
+              <path class="spark spark--1" d="M-116 -44 l7 -17 7 17 17 7 -17 7 -7 17 -7 -17 -17 -7 z"/>
+              <path class="spark spark--2" d="M104 -12 l6 -14 6 14 14 6 -14 6 -6 14 -6 -14 -14 -6 z"/>
+              <path class="spark spark--3" d="M-4 -104 l8 -19 8 19 19 8 -19 8 -8 19 -8 -19 -19 -8 z"/>
             </g>
           </g>
+          <!-- Al pie del cofre, y por DELANTE de el: matas y piedras que le
+               muerden la base. Es el remate del asiento; a un objeto al que
+               nada tapa el ojo lo lee siempre como pegado encima. -->
+          <g>
+            <use href="#tuft" transform="translate(1068 680) scale(1.1)"/>
+            <use href="#tuft" transform="translate(1100 686) scale(.88)"/>
+            <use href="#tuft" transform="translate(1166 683) scale(1)"/>
+            <use href="#tuft" transform="translate(1196 678) scale(.8)"/>
+            <use href="#rock" transform="translate(1132 681) scale(.8)"/>
+            <g fill="#a9591b">
+              <circle cx="1214" cy="700" r="8"/><circle cx="1236" cy="706" r="6.5"/>
+            </g>
+            <g fill="#c9752f" opacity=".7">
+              <circle cx="1211" cy="697" r="3.6"/><circle cx="1234" cy="703" r="3"/>
+            </g>
+          </g>
+
         </g>
 
         <!-- EL BARCO
-             El grupo de fuera hace la travesia (un unico translateX que
-             mueve el JS) y el de dentro el cabeceo. Van separados a
-             proposito: en un mismo transform, cualquier retoque del
-             recorrido se comeria el balanceo. -->
+             Tres grupos anidados, cada uno con SU transform. Van separados a
+             proposito: en uno solo, cualquier retoque del recorrido se
+             comeria el tamano y el balanceo.
+               #ship         la travesia (un translateX que mueve el JS)
+               .ship__scale  el tamano y la posicion en el plano
+               .ship__bob    el cabeceo
+
+             Dentro va dibujado en coordenadas propias, con el (0,0) en el
+             centro de la linea de flotacion: subirlo, bajarlo o agrandarlo
+             es tocar el transform de fuera, nunca las coordenadas de dentro.
+
+             El orden de pintado es el de un barco de verdad, de dentro
+             afuera: jarcia, palos, velas y por ultimo el casco, que tapa el
+             pie de los palos. Asi el aparejo sale DEL barco en vez de quedar
+             apoyado encima. -->
         <g id="ship">
+          <defs>
+            <!-- La silueta del casco, una sola vez. Se usa dos veces: para
+                 pintarla y para recortar contra ella las bandas de color.
+                 De ahi que la regala, la franja roja y la obra viva encajen
+                 al milimetro en vez de asomar por los costados. -->
+            <path id="hull" d="M-206 -60 C-212 -22 -194 14 -148 34 C-74 58 58 60 130 38
+                               C178 24 206 -8 212 -60 Z"/>
+            <!-- El clipPath repite el contorno en vez de referenciarlo con
+                 <use>: varios motores ignoran un <use> dentro de clipPath y
+                 el recorte se pierde sin avisar, dejando las bandas de color
+                 asomando por fuera del casco. -->
+            <clipPath id="clip-hull"><path d="M-206 -60 C-212 -22 -194 14 -148 34 C-74 58 58 60 130 38
+                               C178 24 206 -8 212 -60 Z"/></clipPath>
+          </defs>
+
+          <g class="ship__scale" transform="translate(330 708) scale(1.25)">
           <g class="ship__bob">
-            <ellipse cx="330" cy="742" rx="196" ry="18" fill="#ffffff" opacity=".2"/>
 
-            <!-- Mastil mayor y velas -->
-            <rect x="322" y="452" width="13" height="222" rx="5" fill="#6b4220"/>
-            <path d="M328 452 L328 424 L404 440 L328 456 Z" fill="#ff5a63"/>
-            <path d="M330 478 Q436 518 330 554 Z" fill="#fdfaf0"/>
-            <path d="M330 568 Q470 624 330 666 Z" fill="#fdfaf0"/>
-            <path d="M330 602 Q404 616 330 634" fill="none" stroke="#e2d8bf" stroke-width="4"/>
-            <path d="M330 506 Q386 518 330 532" fill="none" stroke="#e2d8bf" stroke-width="4"/>
-
-            <!-- Trinquete -->
-            <rect x="226" y="524" width="10" height="150" rx="4" fill="#6b4220"/>
-            <path d="M232 544 Q318 578 232 610 Z" fill="#f4eddb"/>
-
-            <!-- Casco -->
-            <path d="M168 668 L528 668 L492 730 Q332 764 196 730 Z" fill="url(#g-hull)"/>
-            <path d="M168 666 L528 666 L522 682 L172 682 Z" fill="#b8813f"/>
-            <path d="M188 698 L508 698 L504 710 L192 710 Z" fill="#ff5a63" opacity=".85"/>
-            <g fill="#3f2411">
-              <circle cx="252" cy="692" r="7"/>
-              <circle cx="302" cy="692" r="7"/>
-              <circle cx="352" cy="692" r="7"/>
-              <circle cx="402" cy="692" r="7"/>
-              <circle cx="452" cy="692" r="7"/>
+            <!-- JARCIA FIJA. Cose cada tope con la borda y los palos entre
+                 si. Es barata de dibujar y es lo que mas hace por que el
+                 barco se lea como una sola pieza. -->
+            <g fill="none" stroke="#5a3a1e" stroke-linecap="round" opacity=".8">
+              <g stroke-width="2.2">
+                <path d="M10 -368 L-150 -54"/>
+                <path d="M10 -368 L146 -282"/>
+                <path d="M10 -368 L-186 -226"/>
+                <path d="M146 -286 L256 -94"/>
+                <path d="M146 -286 L196 -54"/>
+                <path d="M-186 -230 L-120 -104"/>
+              </g>
+              <!-- Obenques: las escalerillas por las que se sube al palo. -->
+              <g stroke-width="1.6" opacity=".75">
+                <path d="M4 -300 L-104 -56"/>
+                <path d="M16 -300 L96 -54"/>
+                <path d="M142 -240 L104 -56"/>
+                <path d="M152 -240 L198 -52"/>
+                <path d="M-188 -200 L-206 -108"/>
+              </g>
             </g>
-            <!-- Bauprés -->
-            <path d="M528 670 L598 644 L602 654 L532 680 Z" fill="#6b4220"/>
+
+            <!-- ARBOLADURA. De popa a proa: mesana, mayor y trinquete. El
+                 barco navega a estribor, asi que la proa es la derecha y es
+                 ahi donde van el trinquete y el bauprés. -->
+            <g fill="#6b4220">
+              <path d="M-190 -104 L-182 -104 L-184 -230 L-188 -230 Z"/>
+              <path d="M4 -60 L16 -60 L13 -372 L7 -372 Z"/>
+              <path d="M140 -58 L152 -58 L149 -286 L143 -286 Z"/>
+            </g>
+            <!-- Cofa: la plataforma del vigia. -->
+            <path d="M-16 -296 L36 -296 L30 -282 L-10 -282 Z" fill="#7a4d26"/>
+            <path d="M-16 -296 L36 -296 L36 -300 L-16 -300 Z" fill="#94643a"/>
+
+            <!-- VERGAS. Van antes que las velas: la vela cuelga de la verga,
+                 no al reves. -->
+            <g fill="#5e3a1c">
+              <path d="M-66 -322 L102 -322 L102 -314 L-66 -314 Z"/>
+              <path d="M-70 -200 L128 -200 L128 -191 L-70 -191 Z"/>
+              <path d="M82 -266 L186 -266 L186 -259 L82 -259 Z"/>
+              <path d="M78 -184 L194 -184 L194 -176 L78 -176 Z"/>
+            </g>
+
+            <!-- VELAMEN
+                 Todas hinchadas hacia estribor, que es adonde va el barco.
+                 Cada vela lleva su sombra a sotavento: sin ella el pano se
+                 lee plano, como un recorte de papel. -->
+            <g class="sails">
+              <!-- Cangreja de mesana. Nace en el propio palo y cae hasta la
+                   botavara: asi cuelga del barco en vez de quedar como un
+                   triangulo blanco suelto al costado. -->
+              <path fill="#f6f0e0" d="M-184 -222 L-184 -96 L-232 -104
+                                      C-236 -140 -224 -184 -184 -222 Z"/>
+              <path fill="#ddd0b2" opacity=".45" d="M-184 -222 C-206 -186 -214 -142 -212 -101
+                                      L-232 -104 C-236 -140 -224 -184 -184 -222 Z"/>
+
+              <!-- Gavia -->
+              <path fill="#fdfaf0" d="M-58 -318 L96 -318 C120 -292 116 -256 94 -230
+                                      C42 -214 -16 -214 -58 -224 C-50 -256 -52 -290 -58 -318 Z"/>
+              <path fill="#ded2b6" opacity=".55" d="M-58 -318 C-52 -288 -50 -254 -58 -224
+                                      C-24 -216 4 -216 26 -219 C-8 -256 -18 -288 -20 -318 Z"/>
+              <path fill="none" stroke="#e2d8bf" stroke-width="3" opacity=".9"
+                    d="M-54 -286 C-6 -276 52 -280 100 -292"/>
+
+              <!-- Mayor -->
+              <path fill="#fdfaf0" d="M-64 -196 L122 -196 C150 -158 146 -106 120 -70
+                                      C56 -50 -22 -50 -64 -64 C-54 -110 -56 -154 -64 -196 Z"/>
+              <path fill="#ded2b6" opacity=".55" d="M-64 -196 C-56 -152 -54 -108 -64 -64
+                                      C-24 -52 10 -52 38 -56 C-4 -106 -20 -152 -22 -196 Z"/>
+              <g fill="none" stroke="#e2d8bf" stroke-width="3.4" opacity=".9">
+                <path d="M-60 -156 C-2 -144 68 -150 126 -164"/>
+                <path d="M-62 -110 C0 -96 74 -102 130 -118"/>
+              </g>
+
+              <!-- Velacho y trinquete, en el palo de proa -->
+              <path fill="#f6f0e0" d="M88 -262 L180 -262 C196 -240 194 -216 180 -196
+                                      C148 -186 112 -186 88 -192 C94 -216 92 -240 88 -262 Z"/>
+              <path fill="#f6f0e0" d="M84 -180 L188 -180 C208 -152 204 -118 186 -92
+                                      C150 -78 108 -78 84 -88 C92 -118 90 -150 84 -180 Z"/>
+              <path fill="#ddd0b2" opacity=".5" d="M84 -180 C92 -150 90 -118 84 -88
+                                      C104 -82 124 -82 138 -84 C116 -118 108 -150 108 -180 Z"/>
+
+              <!-- Foque: el triangulo tendido sobre el bauprés. Es la pieza
+                   que cierra la proa y ata el aparejo con el casco. -->
+              <path fill="#fdfaf0" d="M158 -244 C186 -204 216 -156 246 -102
+                                      C212 -102 184 -110 162 -122 C162 -156 160 -202 158 -244 Z"/>
+              <path fill="#ded2b6" opacity=".4" d="M158 -244 C160 -202 162 -156 162 -122
+                                      C176 -116 192 -110 208 -106 C194 -148 176 -198 158 -244 Z"/>
+            </g>
+
+            <!-- Pico y botavara de la mesana -->
+            <g fill="#5e3a1c">
+              <path d="M-184 -226 L-232 -110 L-226 -107 L-180 -224 Z"/>
+              <path d="M-186 -100 L-234 -108 L-235 -100 L-186 -92 Z"/>
+            </g>
+
+            <!-- Bandera y gallardete -->
+            <path class="flag" d="M14 -372 L14 -404 C46 -396 72 -392 96 -392 C72 -382 46 -376 14 -368 Z" fill="#ff5a63"/>
+            <path class="flag flag--b" d="M150 -286 L150 -306 C170 -300 186 -298 200 -298 C186 -290 168 -286 150 -280 Z" fill="#ffd166"/>
+
+            <!-- BAUPRÉS. Sale del propio contorno de la proa. -->
+            <path d="M188 -54 L256 -96 L262 -86 L194 -42 Z" fill="#6b4220"/>
+
+            <!-- CASCO
+                 Una silueta y dentro de ella todas las bandas, recortadas
+                 con clip-path. Nada asoma, nada se despega. -->
+            <use href="#hull" fill="url(#g-hull)"/>
+            <g clip-path="url(#clip-hull)">
+              <!-- obra viva: lo que va bajo el agua, en cobre -->
+              <rect x="-220" y="10" width="450" height="80" fill="#8d4f2a"/>
+              <rect x="-220" y="-8" width="450" height="15" fill="#e0484f"/>
+              <!-- regala y trancanil -->
+              <rect x="-220" y="-60" width="450" height="17" fill="#c08a4c"/>
+              <rect x="-220" y="-45" width="450" height="5"  fill="#7a4d26" opacity=".7"/>
+              <!-- la luz da por arriba y el fondo queda en sombra -->
+              <rect x="-220" y="22" width="450" height="70" fill="#2b1608" opacity=".3"/>
+              <rect x="-220" y="-64" width="450" height="160" fill="url(#g-hull-shade)"/>
+            </g>
+
+            <!-- Portillas: el barco gana escala en cuanto hay una fila. -->
+            <g fill="#3a2110">
+              <circle cx="-156" cy="-30" r="7.5"/><circle cx="-114" cy="-28" r="7.5"/>
+              <circle cx="-72"  cy="-27" r="7.5"/><circle cx="-30"  cy="-26" r="7.5"/>
+              <circle cx="12"   cy="-26" r="7.5"/><circle cx="54"   cy="-27" r="7.5"/>
+              <circle cx="96"   cy="-28" r="7.5"/><circle cx="138"  cy="-31" r="7.5"/>
+            </g>
+            <g fill="#c9a06a" opacity=".45">
+              <circle cx="-156" cy="-32" r="3"/><circle cx="-114" cy="-30" r="3"/>
+              <circle cx="-72"  cy="-29" r="3"/><circle cx="-30"  cy="-28" r="3"/>
+              <circle cx="12"   cy="-28" r="3"/><circle cx="54"   cy="-29" r="3"/>
+              <circle cx="96"   cy="-30" r="3"/><circle cx="138"  cy="-33" r="3"/>
+            </g>
+
+            <!-- CASTILLO DE POPA
+                 Arranca DEL casco (comparte su canto superior) y sube: es lo
+                 que le da perfil de galeon y no de barca simetrica. -->
+            <path d="M-206 -60 L-120 -60 L-124 -112 Q-166 -122 -204 -112 Z" fill="url(#g-hull)"/>
+            <path d="M-206 -112 Q-166 -122 -124 -112 L-124 -104 Q-166 -114 -206 -104 Z" fill="#c08a4c"/>
+            <path d="M-206 -78 L-120 -78 L-120 -70 L-206 -70 Z" fill="#c08a4c" opacity=".8"/>
+            <g fill="#f2c765" opacity=".85">
+              <rect x="-192" y="-100" width="17" height="15" rx="3"/>
+              <rect x="-166" y="-102" width="17" height="15" rx="3"/>
+              <rect x="-140" y="-100" width="17" height="15" rx="3"/>
+            </g>
+            <!-- Barandilla de popa -->
+            <g fill="none" stroke="#7a4d26" stroke-width="3" stroke-linecap="round">
+              <path d="M-204 -112 L-204 -126"/><path d="M-182 -118 L-182 -132"/>
+              <path d="M-158 -120 L-158 -134"/><path d="M-134 -116 L-134 -130"/>
+              <path d="M-206 -126 Q-166 -136 -132 -130"/>
+            </g>
+            <!-- Farol de popa, colgado de su pescante: sin el soporte el
+                 circulo amarillo se queda flotando al lado del barco. -->
+            <path d="M-146 -132 L-144 -150 L-138 -150 L-140 -132 Z" fill="#7a4d26"/>
+            <path d="M-144 -150 L-172 -150 L-172 -144 L-144 -144 Z" fill="#7a4d26"/>
+            <circle cx="-168" cy="-136" r="8.5" fill="#ffd166"/>
+            <circle cx="-168" cy="-136" r="4" fill="#fff6d0"/>
+            <path d="M-173 -144 L-163 -144 L-165 -149 L-171 -149 Z" fill="#7a4d26"/>
+
+            <!-- Detalle de cubierta: escotilla. -->
+            <path d="M52 -60 L108 -60 L104 -74 L56 -74 Z" fill="#7a4d26"/>
+            <path d="M56 -74 L104 -74 L102 -78 L58 -78 Z" fill="#94643a"/>
+          </g>
+          </g>
+
+          <!-- EL AGUA, por delante del casco.
+               La mancha de abajo va pintada con g-sea-fixed, que da
+               exactamente el color que el mar tiene a cada altura: sobre el
+               agua es invisible y solo se nota por lo que tapa, que es el
+               tercio sumergido de la quilla. Ese recorte es lo que mete el
+               barco DENTRO del mar en vez de dejarlo posado encima.
+               Cuelga de #ship (viaja con el barco) pero FUERA de .ship__bob:
+               el agua no cabecea, es el barco el que se hunde y emerge. -->
+          <g class="ship__water">
+            <path class="ship__sea" fill="url(#g-sea-fixed)"
+                  d="M22 712 C114 694 206 700 292 706 C378 712 452 698 524 702
+                     C564 704 596 699 620 710 C602 748 518 770 398 774
+                     C274 778 144 766 72 746 C44 736 22 724 22 712 Z"/>
+
+            <!-- La sombra que el casco echa sobre el agua. Sin ella el
+                 barco se apoya en el mar; con ella, se hunde en el. -->
+            <ellipse cx="336" cy="736" rx="252" ry="17" fill="#053f60" opacity=".3"/>
+            <ellipse cx="336" cy="728" rx="200" ry="11" fill="#04304b" opacity=".25"/>
+
+            <!-- La costura entre el agua y la madera. Sin espuma, el recorte
+                 de arriba se lee como lo que es: un recorte. -->
+            <path class="ship__foam ship__foam--a" fill="none"
+                  stroke="#dcf3fb" stroke-width="8" stroke-linecap="round" opacity=".5"
+                  d="M58 710 C142 694 228 700 312 706 C388 712 462 699 528 703 C568 706 592 701 612 709"/>
+            <path class="ship__foam ship__foam--b" fill="none"
+                  stroke="#bfe6f4" stroke-width="5" stroke-linecap="round" opacity=".32"
+                  d="M90 727 C170 715 254 723 334 729 C406 734 470 723 530 728"/>
+
+            <!-- Rompiente de proa: el agua que el casco parte al avanzar. -->
+            <g class="ship__bow" fill="#eaf8fd">
+              <path d="M530 702 Q580 692 616 703 Q574 714 530 708 Z" opacity=".55"/>
+              <path d="M552 720 Q592 712 620 720 Q584 728 552 725 Z" opacity=".3"/>
+            </g>
+
+            <!-- Estela: se queda atras y se va deshaciendo. -->
+            <g class="ship__wake" fill="none" stroke="#cdeaf6" stroke-linecap="round">
+              <path d="M8 721 L198 717" stroke-width="6" opacity=".28"/>
+              <path d="M28 737 L164 733" stroke-width="4" opacity=".2"/>
+              <path d="M-2 749 L118 747" stroke-width="3" opacity=".14"/>
+            </g>
           </g>
         </g>
 
@@ -283,11 +1013,6 @@
            destello se deformaria justo en el fotograma que mas se mira. -->
       <rect id="flash" x="0" y="0" width="1600" height="900" fill="#e4fbff" opacity="0"/>
     </svg>
-
-    <div class="intro__title">
-      <p class="intro__brand">SEALYWORLD</p>
-      <p class="intro__tag">La travesia empieza aqui</p>
-    </div>
 
     <button type="button" class="intro__skip" id="introSkip">Saltar intro</button>
   </div>

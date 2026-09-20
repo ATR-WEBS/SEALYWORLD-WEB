@@ -19,7 +19,7 @@
   /* Adonde entra la camara. Son coordenadas del viewBox del SVG, no
      pixeles de pantalla: es el centro de la boca del cofre en index.html.
      Si mueves el cofre, mueve tambien esto. */
-  const COFRE = { x: 806, y: 596 };
+  const COFRE = { x: 1130, y: 613 };
   const ZOOM = 12;
 
   /* GUION. [milisegundo, clase que se enciende, algo extra que hacer] */
@@ -83,40 +83,20 @@
     });
   }
 
-  /* Quitar la cortinilla sin fundido ni clases: para quien ya la vio o
-     no quiere animaciones. */
-  function omitir() {
-    intro.remove();
-  }
+  // --- Arrancar ---------------------------------------------------------
 
-  // --- Decidir si toca verla -------------------------------------------
-
-  /* Forzar la travesia: basta con entrar a sealyworld.com/#zarpar.
-     Ignora dos cosas: que ya se haya visto en esta sesion Y que el sistema
-     pida movimiento reducido. Lo segundo importa mucho al desarrollar:
-     Windows con "Mostrar animaciones" desactivado (muy comun en portatiles
-     con ahorro de energia o en escritorio remoto) reporta reduced-motion,
-     y sin este atajo la travesia jamas aparece en esa maquina. */
-  const forzada = window.location.hash === "#zarpar";
-  if (forzada) window.sessionStorage.removeItem("sw-intro");
-
-  /* Para el visitante normal SI se respeta: un zoom a pantalla completa es
-     justo lo que esa opcion del sistema pide evitar. */
-  const sinMovimiento = !forzada &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  /* sessionStorage y no localStorage: la travesia se ve una vez por
-     visita. Cerrar la pestana y volver otro dia vuelve a ser llegar a la
-     isla por primera vez. */
-  const yaVista = window.sessionStorage.getItem("sw-intro") === "vista";
-
-  if (sinMovimiento || yaVista) {
-    omitir();
-  } else {
-    window.sessionStorage.setItem("sw-intro", "vista");
-    if (skip) skip.addEventListener("click", saltar);
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") saltar();
-    });
-    arrancar();
-  }
+  /* La travesia se ve SIEMPRE: en cada carga y en cada recarga. No se
+     guarda nada (ni sessionStorage ni localStorage) y tampoco se consulta
+     prefers-reduced-motion. Eso ultimo importa en Windows con "Mostrar
+     animaciones" desactivado (muy comun en portatiles con ahorro de
+     energia o en escritorio remoto): reporta movimiento reducido y antes
+     dejaba la entrada muerta en esas maquinas.
+     Quien no la quiera la corta con el boton Saltar o con Escape.
+     El CSS acompana: assets/css/base.css exime a la travesia de su regla
+     de movimiento reducido, que sigue valiendo para toda la tienda. */
+  if (skip) skip.addEventListener("click", saltar);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") saltar();
+  });
+  arrancar();
 })();
