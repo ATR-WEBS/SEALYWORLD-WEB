@@ -4,30 +4,22 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <!-- Escala critica inline: fija la escala de pagina antes del primer
-         paint, para que no haya salto de tamano al cargar main.js.
-         Escribe la variable; quien la aplica es la regla zoom del body,
-         en main.css. La formula esta tambien en main.js
-         (fitPageToScreen): si cambias una, cambia la otra. -->
+
     <script>!function(){var w=window.innerWidth;if(w>=1200){document.documentElement.style.setProperty("--escala-pagina",w/2300);}}();</script>
     <title>Sanciones | Sealy World</title>
     <meta name="description"
           content="Registro oficial de sanciones de SealyWorld. Consulta los baneos, advertencias, muteos y blacklists aplicados por el staff: jugador, motivo y fecha.">
     <meta name="keywords" content="SealyWorld, sanciones, baneos, ban, warn, mute, blacklist, castigos, staff">
 
-    <!-- Favicons -->
     <link href="src/img/sealyworld_logo_sinfondo.webp" rel="icon" type="image/webp">
     <link href="src/img/sealyworld_logo_sinfondo.webp" rel="apple-touch-icon">
 
-    <!-- Preconnect a orígenes externos críticos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://mc-heads.net">
 
-    <!-- Preload: imagen de fondo (LCP) -->
     <link rel="preload" as="image" href="src/img/sealyworld_background.webp" type="image/webp" fetchpriority="high">
 
-    <!-- Fuentes: carga no bloqueante -->
     <link rel="preload" as="style"
           href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
           onload="this.onload=null;this.rel='stylesheet'">
@@ -36,14 +28,11 @@
               rel="stylesheet">
     </noscript>
 
-    <!-- Bootstrap CSS (crítico para layout — bloqueante intencional) -->
     <link href="src/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap Icons — sync para evitar CLS de iconos en cabecera -->
     <link href="src/lib/bootstrap-icons/bootstrap-icons-subset.css" rel="stylesheet">
 
-    <!-- CSS principal -->
-    <link href="src/css/main.css?v=92" rel="stylesheet">
+    <link href="src/css/main.css?v=93" rel="stylesheet">
 </head>
 
 <body class="tienda">
@@ -84,11 +73,9 @@
 
 <main class="tienda__contenido">
 
-    <!-- Sección: Sanciones -->
     <section id="sanciones" class="tienda-soporte section">
         <div class="container" id="sanciones-app">
 
-            <!-- Barra de filtros: tipo de sanción + buscador -->
             <div class="lb__toolbar">
                 <div class="lb__group">
                     <div class="lb__group-row">
@@ -106,24 +93,20 @@
                 </div>
             </div>
 
-            <!-- Board: 10 sanciones por página, 2 columnas de 5 -->
             <div class="lb__board">
                 <div class="lb__grid" id="sn-grid"></div>
             </div>
 
-            <!-- Paginación -->
             <nav class="sn__pager" id="sn-pager" aria-label="Paginación de sanciones"></nav>
 
         </div>
     </section>
 
-
-    <!-- Footer -->
     <footer class="tienda-footer section">
         <div class="container">
             <div class="tienda-footer__contenido">
                 <div class="tienda-footer__logo">
-                    <img src="src/img/sealyworld_logo.webp"
+                    <img loading="lazy" decoding="async" src="src/img/sealyworld_logo.webp"
                          alt="Sealyworld"
                          width="100" height="100"
                          loading="lazy">
@@ -149,7 +132,6 @@
 
 </main>
 
-<!-- Carrito Panel -->
 <div id="carrito-panel" class="carrito-panel">
     <div class="carrito-panel__overlay"></div>
     <div class="carrito-panel__cajita">
@@ -188,8 +170,6 @@
     </div>
 </div>
 
-
-<!-- Modal: error de pago -->
 <div id="modal-error-pago" class="modal-jugador" aria-hidden="true">
     <div class="modal-jugador__overlay"></div>
     <div class="modal-jugador__caja" role="dialog" aria-modal="true" aria-labelledby="modal-error-pago-titulo">
@@ -205,7 +185,6 @@
     </div>
 </div>
 
-<!-- Modal: nombre de jugador requerido -->
 <div id="modal-jugador" class="modal-jugador" aria-hidden="true">
     <div class="modal-jugador__overlay"></div>
     <div class="modal-jugador__caja" role="dialog" aria-modal="true" aria-labelledby="modal-jugador-titulo">
@@ -220,17 +199,13 @@
     </div>
 </div>
 
-<!-- Vendor JS Files -->
 <script src="src/lib/bootstrap/js/bootstrap.bundle.min.js" defer></script>
 
-<!-- Main JS File -->
-<script src="src/js/main.js?v=91" defer></script>
+<script src="src/js/main.js?v=93" defer></script>
 
-<!-- Tienda / Tebex -->
-<script src="src/js/tienda.js?v=91" defer></script>
+<script src="src/js/tienda.js?v=93" defer></script>
 
-<!-- Sanciones -->
-<script src="src/js/sanciones.js?v=1" defer></script>
+<script src="src/js/sanciones.js?v=93" defer></script>
 
 </body>
 

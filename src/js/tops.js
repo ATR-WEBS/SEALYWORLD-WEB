@@ -1,20 +1,9 @@
-/**
- * Tops (tops.html)
- * Clasificación de jugadores: podio + lista + buscador.
- * Cada modalidad tiene sus propias categorías de ranking (Kills, Muertes,
- * Dinero, Victorias, Nivel...) — no todas comparten las mismas.
- *
- * Los datos son generados de forma determinista (mismo nombre + modalidad =>
- * mismas estadísticas) a la espera de conectarse al backend real del servidor.
- * Sustituye buildBoard() por un fetch a tu API cuando esté disponible.
- */
 (function () {
     "use strict";
 
     const root = document.getElementById('tops-app');
     if (!root) return;
 
-    /* ---------------- rng determinista ---------------- */
     function hashStr(s) {
         let h = 2166136261;
         for (let i = 0; i < s.length; i++) {
@@ -34,7 +23,6 @@
         };
     }
 
-    /* ---------------- avatar pixelado de respaldo ---------------- */
     const avaCache = {};
 
     function pixelAvatar(name) {
@@ -75,7 +63,6 @@
         return url;
     }
 
-    /** <img> con avatar de mc-heads y respaldo pixelado si falla la carga. */
     function avatarImg(name, cls) {
         const img = document.createElement('img');
         img.className = cls;
@@ -92,11 +79,9 @@
         return img;
     }
 
-    /* ---------------- formato ---------------- */
     const fmt = function (n) { return n.toLocaleString('es-ES'); };
     const kd = function (n) { return n.toFixed(2); };
 
-    /* ---------------- datos ---------------- */
     const NAMES = ["xNeptuno", "CoralReaper", "AquaPyro", "FrostBYTE", "DonPepe_", "KrakenZ", "myclass", "SealMaster", "PixelPirata", "TsunamiX",
         "MangoLoco", "DarkSquid", "BluFin", "GhostReef", "ElTiburon", "ZafiroKing", "MarinaXx", "OctoPunch", "ReefRunner", "SaltyDog",
         "WavyJota", "CoralCrush", "DeepDiver", "Valeria_", "TacoGod99", "TurboCaracol", "ShadowFin", "MrBubbles", "NovaShark", "PvPandita",
@@ -110,15 +95,6 @@
         {id: "ffa", label: "FFA Dynamic"}
     ];
 
-    /**
-     * Categorías de ranking. Cada una define:
-     *  - label:    texto del botón y de la columna.
-     *  - value:    valor numérico usado para ordenar (descendente).
-     *  - valueFmt: cómo se muestra el número grande.
-     *  - unit:     etiqueta pequeña debajo del número en la lista.
-     *  - sub:      {label, fmt} para la "pastilla" secundaria de la derecha.
-     *  - meta:     línea pequeña bajo el nombre del jugador.
-     */
     const CATS = {
         kills:     {label: "Kills",     value: function (p) { return p.kills; },     valueFmt: function (p) { return fmt(p.kills); },     unit: "kills",     sub: {label: "K/D", fmt: function (p) { return kd(p.kd); }},        meta: function (p) { return fmt(p.deaths) + " muertes"; }},
         muertes:   {label: "Muertes",   value: function (p) { return p.deaths; },    valueFmt: function (p) { return fmt(p.deaths); },    unit: "muertes",   sub: {label: "K/D", fmt: function (p) { return kd(p.kd); }},        meta: function (p) { return fmt(p.kills) + " kills"; }},
@@ -127,7 +103,6 @@
         nivel:     {label: "Nivel",     value: function (p) { return p.nivel; },     valueFmt: function (p) { return String(p.nivel); },  unit: "nivel",     sub: {label: "XP", fmt: function (p) { return fmt(p.xp); }},        meta: function (p) { return fmt(p.xp) + " XP"; }}
     };
 
-    /* Categorías disponibles por modalidad — no todas comparten las mismas. */
     const MODE_CATS = {
         practice:  ["kills", "muertes", "victorias"],
         survival:  ["dinero", "nivel", "kills"],
@@ -135,7 +110,6 @@
         ffa:       ["kills", "muertes", "victorias", "nivel"]
     };
 
-    /* Periodos (filtro de tiempo). El factor escala las estadísticas acumulables. */
     const TIMES = [
         {id: "permanente", label: "Permanente"},
         {id: "mensual", label: "Mensual"},
@@ -154,7 +128,7 @@
             const partidas = Math.max(1, Math.round((20 + r() * 480) * scale));
             const victorias = Math.round(partidas * (0.12 + skill * 0.5 * r()));
             const winrate = partidas ? Math.round(victorias / partidas * 100) : 0;
-            const nivel = Math.max(1, Math.round(5 + skill * 90 + r() * 10)); // nivel es persistente
+            const nivel = Math.max(1, Math.round(5 + skill * 90 + r() * 10));
             const xp = Math.round(nivel * nivel * 120 + r() * 6000);
             const dinero = Math.max(0, Math.round((1000 + r() * 60000) * (0.4 + skill) * scale));
             return {
@@ -165,7 +139,6 @@
         });
     }
 
-    /** Ordena por la categoría activa y reasigna el puesto (rank). */
     function rankBoard(board, cat) {
         const c = CATS[cat];
         board.sort(function (a, b) { return c.value(b) - c.value(a) || b.kills - a.kills; });
@@ -176,7 +149,6 @@
     const modeLabel = function (id) { return MODES.find(function (m) { return m.id === id; }).label; };
     const profileUrl = function (name) { return 'perfil.html?u=' + encodeURIComponent(name); };
 
-    /* ---------------- helpers de DOM ---------------- */
     function el(tag, cls, html) {
         const node = document.createElement(tag);
         if (cls) node.className = cls;
@@ -186,10 +158,8 @@
 
     const CHEVRON = '<svg class="lb__select-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-    /* ---------------- estado ---------------- */
     const state = {mode: "practice", cat: MODE_CATS.practice[0], time: "permanente", query: ""};
 
-    /* refs a contenedores */
     const gridEl = document.getElementById('lb-grid');
     const tabsEl = document.getElementById('lb-tabs');
     const filtersEl = document.getElementById('lb-filters');
@@ -197,7 +167,6 @@
     const searchWrap = searchEl.closest('.lb__search');
     const searchResultsEl = document.getElementById('lb-search-results');
 
-    /* ---------------- render: pestañas de modalidad ---------------- */
     function renderTabs() {
         MODES.forEach(function (m) {
             const btn = el('button', 'lb__tab' + (state.mode === m.id ? ' active' : ''),
@@ -206,7 +175,7 @@
             btn.addEventListener('click', function () {
                 if (state.mode === m.id) return;
                 state.mode = m.id;
-                // Si la categoría actual no existe en la nueva modalidad, usar la primera.
+
                 if (MODE_CATS[m.id].indexOf(state.cat) === -1) state.cat = MODE_CATS[m.id][0];
                 tabsEl.querySelectorAll('.lb__tab').forEach(function (b) { b.classList.remove('active'); });
                 btn.classList.add('active');
@@ -228,7 +197,6 @@
         });
     }
 
-    /* ---------------- dropdown personalizado ---------------- */
     function closeAllSelects() {
         document.querySelectorAll('.lb__select.open').forEach(function (s) {
             s.classList.remove('open');
@@ -240,10 +208,6 @@
         if (searchWrap && !searchWrap.contains(e.target)) searchWrap.classList.remove('open');
     });
 
-    /**
-     * Construye un desplegable. items: [{id,label}]. iconCls: clase bootstrap-icons.
-     * onSelect(id) se llama al elegir una opción distinta.
-     */
     function buildDropdown(iconCls, items, currentId, onSelect) {
         const wrap = el('div', 'lb__select');
 
@@ -287,7 +251,6 @@
         return wrap;
     }
 
-    /* ---------------- render: filtros (tipo de top + periodo) ---------------- */
     function renderFilters() {
         filtersEl.innerHTML = '';
 
@@ -305,7 +268,6 @@
         }));
     }
 
-    /* ---------------- render: tarjeta de jugador (compacta, horizontal) ---------------- */
     function playerCard(p, place, cat, highlight) {
         const card = el('a', 'lb__pcard lb__pcard--' + place + (highlight ? ' lb__pcard--highlight' : ''));
         card.href = profileUrl(p.name);
@@ -328,7 +290,6 @@
         return card;
     }
 
-    /* ---------------- buscador: resultados desplegables bajo el input ---------------- */
     function renderSearch() {
         const q = state.query.trim().toLowerCase();
         searchResultsEl.innerHTML = '';
@@ -337,7 +298,7 @@
         const matches = NAMES.filter(function (n) {
             return n.toLowerCase().indexOf(q) !== -1;
         }).sort(function (a, b) {
-            // Prioriza los que empiezan por la búsqueda.
+
             return a.toLowerCase().indexOf(q) - b.toLowerCase().indexOf(q) || a.localeCompare(b);
         }).slice(0, 6);
 
@@ -355,7 +316,6 @@
         searchWrap.classList.add('open');
     }
 
-    /* ---------------- render principal ---------------- */
     function renderBoard() {
         const cat = CATS[state.cat];
         const board = rankBoard(buildBoard(state.mode, state.time), state.cat);
@@ -371,7 +331,6 @@
             return !!(q && p && (p.name.toLowerCase() === q || (searched && p.name === searched.name)));
         }
 
-        /* Top 10 en tarjetas (1-5 columna izquierda, 6-10 derecha) */
         gridEl.innerHTML = '';
         top10.forEach(function (p, i) {
             const card = playerCard(p, p.rank, cat, matchKey(p));
@@ -380,7 +339,6 @@
         });
     }
 
-    /* ---------------- init ---------------- */
     renderTabs();
     renderFilters();
     renderBoard();

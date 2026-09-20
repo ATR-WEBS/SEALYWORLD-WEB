@@ -1,18 +1,9 @@
-/**
- * Perfil de jugador (perfil.html)
- * Lee ?u=<nombre> y muestra las estadísticas del jugador por modalidad.
- *
- * Usa exactamente la misma generación determinista que tops.js (periodo
- * "permanente") para que los números coincidan con los tops.
- * Cuando exista el backend, reemplaza buildBoard() por un fetch a tu API.
- */
 (function () {
     "use strict";
 
     const mount = document.getElementById('pf-content');
     if (!mount) return;
 
-    /* ---------------- rng determinista (idéntico a tops.js) ---------------- */
     function hashStr(s) {
         let h = 2166136261;
         for (let i = 0; i < s.length; i++) {
@@ -32,7 +23,6 @@
         };
     }
 
-    /* ---------------- datos (idéntico a tops.js) ---------------- */
     const NAMES = ["xNeptuno", "CoralReaper", "AquaPyro", "FrostBYTE", "DonPepe_", "KrakenZ", "myclass", "SealMaster", "PixelPirata", "TsunamiX",
         "MangoLoco", "DarkSquid", "BluFin", "GhostReef", "ElTiburon", "ZafiroKing", "MarinaXx", "OctoPunch", "ReefRunner", "SaltyDog",
         "WavyJota", "CoralCrush", "DeepDiver", "Valeria_", "TacoGod99", "TurboCaracol", "ShadowFin", "MrBubbles", "NovaShark", "PvPandita",
@@ -64,8 +54,6 @@
         ffa:       ["kills", "muertes", "victorias", "nivel"]
     };
 
-    /* ---------------- actividad reciente (eventos / partidas) ---------------- */
-    /* ffa y survival muestran eventos; practice y ponygames muestran partidas. */
     const EVENT_NAMES = {
         ffa:      ["FFA Showdown", "Caos en la Arena", "Última Foca en Pie", "Duelo Abierto", "Tormenta PvP", "Reyes del FFA", "Coliseo Salvaje", "Battle Royale"],
         survival: ["Survival Royale", "Caza del Kraken", "Asalto al Búnker", "Noche de Mobs", "Guerra de Clanes", "Conquista Marina", "Saqueo del Arrecife", "Resistencia Final"]
@@ -74,8 +62,7 @@
         practice:  ["Arena 1v1", "NoDebuff", "Sumo", "Gapple", "BuildUHC", "Combo", "Boxing", "Bridge"],
         ponygames: ["SkyWars", "BedWars", "TNT Run", "El Cazador", "Parkour", "Spleef", "Lucky Block", "OneInTheChamber"]
     };
-    /* ---------------- redes sociales (solo las vinculadas) ---------------- */
-    /* Redes que un jugador puede vincular. Iconos SVG inline (Simple Icons). */
+
     const SOCIALS = [
         {id: "twitch",  label: "Twitch",  href: function (n) { return "https://twitch.tv/" + n; },
             path: "M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"},
@@ -89,13 +76,11 @@
             path: "M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12z"}
     ];
 
-    /** Redes vinculadas del jugador (determinista). */
     function buildSocials() {
         const r = mulberry32(hashStr(realName + "|social") + 11);
         return SOCIALS.filter(function () { return r() > 0.45; });
     }
 
-    /** Fecha dd/mm/aaaa restando N días a hoy. */
     function dateAgo(daysAgo) {
         const d = new Date();
         d.setDate(d.getDate() - daysAgo);
@@ -104,7 +89,6 @@
         return dd + '/' + mm + '/' + d.getFullYear();
     }
 
-    /** 4 actividades recientes deterministas para el jugador en una modalidad. */
     function buildRecent(modeId) {
         const isEvent = modeId === "ffa" || modeId === "survival";
         const pool = isEvent ? EVENT_NAMES[modeId] : MATCH_MAPS[modeId];
@@ -121,7 +105,7 @@
             const kills = Math.max(0, Math.round(2 + r() * 26));
             const deaths = Math.max(1, Math.round(1 + r() * 9));
             const win = r() > 0.45;
-            daysAgo += 1 + Math.floor(r() * 6); // más antigua cada tarjeta
+            daysAgo += 1 + Math.floor(r() * 6);
             const item = {
                 name: pool[idx],
                 kills: kills,
@@ -134,17 +118,17 @@
                 item.players = players;
                 item.pos = win ? 1 + Math.floor(r() * 3) : 4 + Math.floor(r() * Math.max(1, players - 4));
                 item.points = 200 + Math.round(r() * 1800);
-                item.win = item.pos <= 3; // eventos: solo top 3 es victoria
+                item.win = item.pos <= 3;
             } else if (modeId === "practice") {
-                // Duelo 1v1: rival distinto al jugador.
+
                 const foes = NAMES.filter(function (n) { return n !== realName; });
                 item.opponent = foes[Math.floor(r() * foes.length)];
             } else if (modeId === "ponygames") {
-                // Party games: puesto final, minijuegos ganados y puntos.
-                const players = 8 + Math.round(r() * 16); // 8–24
+
+                const players = 8 + Math.round(r() * 16);
                 item.players = players;
                 item.pos = 1 + Math.floor(r() * players);
-                item.win = item.pos <= 3; // podio = victoria
+                item.win = item.pos <= 3;
                 item.miniWins = Math.round(r() * 8);
                 item.points = 200 + Math.round(r() * 2300);
             }
@@ -153,7 +137,6 @@
         return {isEvent: isEvent, items: items};
     }
 
-    /* permanente => escala 1 (mismos números que la vista por defecto del top) */
     function buildBoard(modeId) {
         return NAMES.map(function (n) {
             const r = mulberry32(hashStr(n + "|" + modeId) + 3);
@@ -174,7 +157,6 @@
         });
     }
 
-    /** Puesto del jugador en una categoría dentro de una modalidad. */
     function rankOf(board, catId, name) {
         const arr = board.slice().sort(function (a, b) {
             return CATS[catId].value(b) - CATS[catId].value(a) || b.kills - a.kills;
@@ -182,7 +164,6 @@
         return arr.findIndex(function (x) { return x.name === name; }) + 1;
     }
 
-    /* ---------------- helpers DOM ---------------- */
     function el(tag, cls, html) {
         const node = document.createElement(tag);
         if (cls) node.className = cls;
@@ -196,17 +177,15 @@
         img.width = 160;
         img.height = 340;
         img.loading = 'eager';
-        // Skin completa (cuerpo) del jugador.
+
         img.src = 'https://mc-heads.net/body/' + encodeURIComponent(name) + '/160';
         return img;
     }
 
-    /* ---------------- jugador desde la URL ---------------- */
     const params = new URLSearchParams(location.search);
     const wanted = (params.get('u') || '').trim();
     const realName = NAMES.find(function (n) { return n.toLowerCase() === wanted.toLowerCase(); });
 
-    /* ---------------- no encontrado ---------------- */
     if (!realName) {
         const nf = el('div', 'pf__notfound');
         nf.appendChild(el('div', 'pf__notfound-icon', '<i class="bi bi-person-exclamation"></i>'));
@@ -222,7 +201,6 @@
 
     document.title = realName + ' | Perfil · Sealy World';
 
-    /* ---------------- estadísticas por modalidad + agregados ---------------- */
     const perMode = MODES.map(function (m) {
         const board = buildBoard(m.id);
         const me = board.find(function (p) { return p.name === realName; });
@@ -246,11 +224,8 @@
     const globalWin = totPart ? Math.round(totVict / totPart * 100) : 0;
     const bestOverall = perMode.reduce(function (min, d) { return Math.min(min, d.bestRank); }, Infinity);
 
-    /* ---------------- render ---------------- */
-
     const layout = el('div', 'pf__layout');
 
-    // Izquierda: nombre arriba + skin completa + redes
     const side = el('aside', 'pf__side');
     side.appendChild(el('h1', 'pf__name', realName));
     side.appendChild(el('p', 'pf__sub', 'Jugador de SealyWorld'));
@@ -277,7 +252,6 @@
 
     layout.appendChild(side);
 
-    // Derecha: resumen + pestañas + panel (tablas)
     const main = el('div', 'pf__main');
 
     const heroStats = el('div', 'pf__hero-stats');
@@ -295,13 +269,11 @@
         heroStats.appendChild(it);
     });
 
-    // Modalidad: pestañas + panel (una a la vez, con sus stats en grande)
     const tabs = el('div', 'pf__tabs');
     const panel = el('div', 'pf__panel');
     const recentWrap = el('section', 'pf__recent');
     let activeMode = MODES[0].id;
 
-    /** Columna de un jugador en un duelo: cabeza arriba + nombre, ganador resaltado. */
     function duelSide(name, isWinner) {
         const side = el('div', 'pf__rcard-duel-side' + (isWinner ? ' is-win' : ''));
         const head = el('img', 'pf__rcard-duel-head');
@@ -315,7 +287,6 @@
         return side;
     }
 
-    /** Bloque de puesto: cabeza del jugador + nº de puesto y nº de jugadores. */
     function placeBlock(pos, players, isWin) {
         const place = el('div', 'pf__rcard-place');
 
@@ -337,7 +308,6 @@
         return place;
     }
 
-    /** Tarjetas de actividad reciente segun la modalidad activa. */
     function renderRecent(d) {
         const data = buildRecent(d.mode.id);
         recentWrap.innerHTML = '';
@@ -356,17 +326,17 @@
             card.appendChild(top);
 
             if (isPractice) {
-                // Duelo 1v1: jugador vs oponente, enfrentados y centrados.
+
                 const duel = el('div', 'pf__rcard-duel');
                 duel.appendChild(duelSide(realName, it.win));
                 duel.appendChild(el('span', 'pf__rcard-duel-vs', 'VS'));
                 duel.appendChild(duelSide(it.opponent, !it.win));
                 card.appendChild(duel);
             } else if (isPony) {
-                // Party games: cabeza del jugador + puesto final.
+
                 card.appendChild(placeBlock(it.pos, it.players, it.win));
             } else if (data.isEvent) {
-                // Eventos (Koth / Survival): puesto a la izquierda y puntos a la derecha.
+
                 const row = el('div', 'pf__rcard-ffa');
                 row.appendChild(placeBlock(it.pos, it.players, it.win));
 

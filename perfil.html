@@ -4,29 +4,21 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <!-- Escala critica inline: fija la escala de pagina antes del primer
-         paint, para que no haya salto de tamano al cargar main.js.
-         Escribe la variable; quien la aplica es la regla zoom del body,
-         en main.css. La formula esta tambien en main.js
-         (fitPageToScreen): si cambias una, cambia la otra. -->
+
     <script>!function(){var w=window.innerWidth;if(w>=1200){document.documentElement.style.setProperty("--escala-pagina",w/2300);}}();</script>
     <title>Perfil | Sealy World</title>
     <meta name="description"
           content="Perfil de jugador de SealyWorld: estadísticas por modalidad, kills, K/D, victorias, dinero y nivel.">
 
-    <!-- Favicons -->
     <link href="src/img/sealyworld_logo_sinfondo.webp" rel="icon" type="image/webp">
     <link href="src/img/sealyworld_logo_sinfondo.webp" rel="apple-touch-icon">
 
-    <!-- Preconnect a orígenes externos críticos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://mc-heads.net">
 
-    <!-- Preload: imagen de fondo (LCP) -->
     <link rel="preload" as="image" href="src/img/sealyworld_background.webp" type="image/webp" fetchpriority="high">
 
-    <!-- Fuentes: carga no bloqueante -->
     <link rel="preload" as="style"
           href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
           onload="this.onload=null;this.rel='stylesheet'">
@@ -35,14 +27,11 @@
               rel="stylesheet">
     </noscript>
 
-    <!-- Bootstrap CSS (crítico para layout — bloqueante intencional) -->
     <link href="src/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap Icons — sync para evitar CLS de iconos en cabecera -->
     <link href="src/lib/bootstrap-icons/bootstrap-icons-subset.css" rel="stylesheet">
 
-    <!-- CSS principal -->
-    <link href="src/css/main.css?v=92" rel="stylesheet">
+    <link href="src/css/main.css?v=93" rel="stylesheet">
 </head>
 
 <body class="tienda">
@@ -83,7 +72,6 @@
 
 <main class="tienda__contenido">
 
-    <!-- Sección: Perfil -->
     <section id="perfil" class="tienda-soporte section">
         <div class="container" id="perfil-app">
 
@@ -95,19 +83,16 @@
                 Volver a Tops
             </a>
 
-            <!-- Contenido del perfil (lo rellena perfil.js) -->
             <div id="pf-content"></div>
 
         </div>
     </section>
 
-
-    <!-- Footer -->
     <footer class="tienda-footer section">
         <div class="container">
             <div class="tienda-footer__contenido">
                 <div class="tienda-footer__logo">
-                    <img src="src/img/sealyworld_logo.webp"
+                    <img loading="lazy" decoding="async" src="src/img/sealyworld_logo.webp"
                          alt="Sealyworld"
                          width="100" height="100"
                          loading="lazy">
@@ -133,14 +118,11 @@
 
 </main>
 
-<!-- Vendor JS Files -->
 <script src="src/lib/bootstrap/js/bootstrap.bundle.min.js" defer></script>
 
-<!-- Main JS File -->
-<script src="src/js/main.js?v=91" defer></script>
+<script src="src/js/main.js?v=93" defer></script>
 
-<!-- Perfil -->
-<script src="src/js/perfil.js?v=64" defer></script>
+<script src="src/js/perfil.js?v=93" defer></script>
 
 </body>
 

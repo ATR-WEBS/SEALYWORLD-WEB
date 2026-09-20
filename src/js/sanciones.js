@@ -1,19 +1,9 @@
-/**
- * Sanciones (sanciones.html)
- * Registro de sanciones del servidor: ban, warn, mute y blacklist.
- * Lista paginada (10 por página) con buscador y filtro por tipo.
- *
- * Los datos son generados de forma determinista (mismo índice => misma
- * sanción) a la espera de conectarse al backend real del servidor.
- * Sustituye buildSanctions() por un fetch a tu API cuando esté disponible.
- */
 (function () {
     "use strict";
 
     const root = document.getElementById('sanciones-app');
     if (!root) return;
 
-    /* ---------------- rng determinista ---------------- */
     function hashStr(s) {
         let h = 2166136261;
         for (let i = 0; i < s.length; i++) {
@@ -33,7 +23,6 @@
         };
     }
 
-    /* ---------------- avatar pixelado de respaldo ---------------- */
     const avaCache = {};
 
     function pixelAvatar(name) {
@@ -74,7 +63,6 @@
         return url;
     }
 
-    /** <img> con avatar de mc-heads y respaldo pixelado si falla la carga. */
     function avatarImg(name, cls) {
         const img = document.createElement('img');
         img.className = cls;
@@ -91,7 +79,6 @@
         return img;
     }
 
-    /* ---------------- datos base ---------------- */
     const NAMES = ["xNeptuno", "CoralReaper", "AquaPyro", "FrostBYTE", "DonPepe_", "KrakenZ", "myclass", "SealMaster", "PixelPirata", "TsunamiX",
         "MangoLoco", "DarkSquid", "BluFin", "GhostReef", "ElTiburon", "ZafiroKing", "MarinaXx", "OctoPunch", "ReefRunner", "SaltyDog",
         "WavyJota", "CoralCrush", "DeepDiver", "Valeria_", "TacoGod99", "TurboCaracol", "ShadowFin", "MrBubbles", "NovaShark", "PvPandita",
@@ -99,10 +86,8 @@
         "SirenaXD", "Barracuda7", "NeoPez", "Caribe", "Plankton_", "Mareas", "Triton99", "ConchaFina", "Remolino", "Faro_",
         "Hackerman", "LagSwitch", "SpammerX", "ToxicReef", "GriefKid", "BotFarmer", "RuleBreaker", "ExploitR", "FlyHaxx", "KillAuraZ"];
 
-    /* Staff que aplica las sanciones. */
     const STAFF = ["AdminSeal", "ModCoral", "HelperMarea", "OwnerNeptuno", "ModAtlantis", "AdminPerla", "ModTriton", "HelperConcha"];
 
-    /* Tipos de sanción. El "weight" sesga la cantidad generada de cada tipo. */
     const TYPES = [
         {id: "ban",       label: "Ban",       icon: "bi-hammer",            weight: 5},
         {id: "warn",      label: "Warn",      icon: "bi-exclamation-triangle-fill", weight: 5},
@@ -112,7 +97,6 @@
     const TYPE_MAP = {};
     TYPES.forEach(function (t) { TYPE_MAP[t.id] = t; });
 
-    /* Motivos por tipo de sanción. */
     const REASONS = {
         ban: ["Uso de hacks (KillAura)", "Uso de cliente no permitido", "Fly hack en zona PvP",
               "Bug abuse / duplicación", "Anuncio de otro servidor", "Combat log reiterado",
@@ -130,7 +114,6 @@
                     "Suplantación de identidad de un miembro del staff con fines de estafa"]
     };
 
-    /* Duraciones típicas por tipo (texto mostrado en la tarjeta). */
     const DURATIONS = {
         ban: ["7 días", "30 días", "3 días", "14 días", "1 día", "Permanente"],
         warn: ["Permanente"],
@@ -138,8 +121,6 @@
         blacklist: ["Permanente"]
     };
 
-    /* ---------------- generación determinista de sanciones ---------------- */
-    /** Construye una bolsa de tipos según el peso para repartir las sanciones. */
     function buildTypeBag() {
         const bag = [];
         TYPES.forEach(function (t) {
@@ -148,14 +129,14 @@
         return bag;
     }
 
-    const TOTAL = 84; // total de sanciones generadas
+    const TOTAL = 84;
     const MESES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
 
     function buildSanctions() {
         const bag = buildTypeBag();
         const list = [];
-        // Fecha de referencia: las sanciones se reparten hacia atrás desde hoy.
-        const now = new Date(2026, 5, 13); // 13 jun 2026 (mes 0-indexado)
+
+        const now = new Date(2026, 5, 13);
         for (let i = 0; i < TOTAL; i++) {
             const r = mulberry32(hashStr("sancion|" + i) + 11);
             const name = NAMES[Math.floor(r() * NAMES.length)];
@@ -166,7 +147,6 @@
             const durs = DURATIONS[type];
             const duracion = durs[Math.floor(r() * durs.length)];
 
-            // Fecha: entre hoy y ~180 días atrás (más recientes = índice menor).
             const diasAtras = Math.floor((i * 2) + r() * 4);
             const d = new Date(now.getTime() - diasAtras * 86400000);
             const fecha = d.getDate() + ' ' + MESES[d.getMonth()] + ' ' + d.getFullYear();
@@ -182,14 +162,13 @@
                 ts: d.getTime()
             });
         }
-        // Más recientes primero.
+
         list.sort(function (a, b) { return b.ts - a.ts; });
         return list;
     }
 
     const profileUrl = function (name) { return 'perfil.html?u=' + encodeURIComponent(name); };
 
-    /* ---------------- helpers de DOM ---------------- */
     function el(tag, cls, html) {
         const node = document.createElement(tag);
         if (cls) node.className = cls;
@@ -197,12 +176,10 @@
         return node;
     }
 
-    /* ---------------- estado ---------------- */
     const PAGE_SIZE = 6;
     const ALL = buildSanctions();
     const state = {type: "todas", query: "", page: 1};
 
-    /* refs a contenedores */
     const gridEl = document.getElementById('sn-grid');
     const tabsEl = document.getElementById('sn-tabs');
     const pagerEl = document.getElementById('sn-pager');
@@ -210,7 +187,6 @@
     const searchWrap = searchEl.closest('.lb__search');
     const searchResultsEl = document.getElementById('sn-search-results');
 
-    /* ---------------- filtrado ---------------- */
     function filtered() {
         const q = state.query.trim().toLowerCase();
         return ALL.filter(function (s) {
@@ -220,7 +196,6 @@
         });
     }
 
-    /* ---------------- render: pestañas de tipo ---------------- */
     function renderTabs() {
         const items = [{id: "todas", label: "Todas"}].concat(TYPES);
         items.forEach(function (t) {
@@ -257,31 +232,25 @@
         if (searchWrap && !searchWrap.contains(e.target)) searchWrap.classList.remove('open');
     });
 
-    /* ---------------- tarjeta de sanción (horizontal por columnas) ---------------- */
     function sanctionCard(s, num) {
         const type = TYPE_MAP[s.type];
         const card = el('a', 'lb__pcard sn__card sn__card--' + s.type);
         card.href = profileUrl(s.name);
 
-        /* col 0: número de posición */
         card.appendChild(el('div', 'lb__medal lb__medal--num sn__medal', String(num)));
 
-        /* col 1: avatar */
         card.appendChild(avatarImg(s.name, 'lb__ava sn__ava'));
 
-        /* col 2: jugador + quién lo sancionó */
         const player = el('div', 'sn__player sn__cell--player');
         player.appendChild(el('p', 'sn__name', s.name));
         player.appendChild(el('span', 'sn__staff', 'Sancionado por ' + s.staff));
         card.appendChild(player);
 
-        /* col 3: tipo de sanción */
         const tipo = el('div', 'sn__col sn__cell--tipo');
         tipo.appendChild(el('span', 'sn__label', 'Tipo de Sanción'));
         tipo.appendChild(el('div', 'sn__col-val', type.label));
         card.appendChild(tipo);
 
-        /* col 4: motivo */
         const reason = el('div', 'sn__col sn__cell--motivo');
         reason.appendChild(el('span', 'sn__label', 'Motivo'));
         const reasonText = el('div', 'sn__reason-text', s.reason);
@@ -289,13 +258,11 @@
         reason.appendChild(reasonText);
         card.appendChild(reason);
 
-        /* col 5: tiempo de la sanción */
         const tiempo = el('div', 'sn__col sn__cell--tiempo');
         tiempo.appendChild(el('span', 'sn__label', 'Tiempo'));
         tiempo.appendChild(el('div', 'sn__col-val', s.duracion || '—'));
         card.appendChild(tiempo);
 
-        /* col 6: fecha */
         const date = el('div', 'sn__col sn__cell--fecha');
         date.appendChild(el('span', 'sn__label', 'Fecha'));
         date.appendChild(el('div', 'sn__col-val', s.fecha));
@@ -304,7 +271,6 @@
         return card;
     }
 
-    /* ---------------- buscador: resultados desplegables ---------------- */
     function renderSearch() {
         const q = state.query.trim().toLowerCase();
         searchResultsEl.innerHTML = '';
@@ -336,7 +302,6 @@
         searchWrap.classList.add('open');
     }
 
-    /* ---------------- paginación ---------------- */
     function renderPager(totalPages) {
         pagerEl.innerHTML = '';
         if (totalPages <= 1) return;
@@ -364,7 +329,6 @@
         pagerEl.appendChild(pageBtn(ARROW_L, state.page - 1,
             {cls: 'sn__page--arrow', disabled: state.page === 1}));
 
-        // Ventana de páginas alrededor de la actual.
         const win = 1;
         let start = Math.max(1, state.page - win);
         let end = Math.min(totalPages, state.page + win);
@@ -387,7 +351,6 @@
             {cls: 'sn__page--arrow', disabled: state.page === totalPages}));
     }
 
-    /* ---------------- render principal ---------------- */
     function render() {
         const rows = filtered();
         const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
@@ -396,7 +359,6 @@
         const start = (state.page - 1) * PAGE_SIZE;
         const pageRows = rows.slice(start, start + PAGE_SIZE);
 
-        /* Grid */
         gridEl.innerHTML = '';
         if (!pageRows.length) {
             gridEl.appendChild(el('div', 'sn__empty',
@@ -412,7 +374,6 @@
         renderPager(totalPages);
     }
 
-    /* ---------------- init ---------------- */
     renderTabs();
     render();
 })();

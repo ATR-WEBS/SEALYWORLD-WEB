@@ -1,18 +1,9 @@
-/**
- * Equipo (equipo.html)
- * Muestra el staff por rango (Owner, Admin, Partner) con el mismo lenguaje
- * visual que el resto del sitio: cabecera glass + tarjetas glass por miembro,
- * acento por color de rango y enlace a su perfil.
- *
- * Cuando exista backend, reemplaza RANKS por datos reales.
- */
 (function () {
     "use strict";
 
     const mount = document.getElementById('equipo-app');
     if (!mount) return;
 
-    /* ---------------- datos del equipo ---------------- */
     const RANKS = [
         {
             id: "owner", label: "Owner", color: "#ffd272",
@@ -31,7 +22,6 @@
         }
     ];
 
-    /* ---------------- helpers DOM ---------------- */
     function el(tag, cls, html) {
         const node = document.createElement(tag);
         if (cls) node.className = cls;
@@ -39,7 +29,6 @@
         return node;
     }
 
-    /** Tarjeta de un miembro del staff. */
     function memberCard(name, rank, idx) {
         const card = el('a', 'eq__card' + (rank.id === 'owner' ? ' eq__card--owner' : ''));
         card.href = 'perfil.html?u=' + encodeURIComponent(name);
@@ -61,10 +50,8 @@
         return card;
     }
 
-    /* ---------------- render ---------------- */
     document.title = 'Equipo | Sealy World';
 
-    // Secciones por rango
     RANKS.forEach(function (rank) {
         const sec = el('section', 'eq__section');
         sec.style.setProperty('--rk', rank.color);

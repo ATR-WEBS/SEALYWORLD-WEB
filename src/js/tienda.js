@@ -1,18 +1,5 @@
-/**
- * Tienda Sealyworld — Integración Tebex Headless
- *
- * CONFIGURACIÓN:
- *   Reemplaza TEBEX_TOKEN con tu token público de Tebex.
- *   Cada .tienda-paquetes__tarjeta debe tener:
- *     data-package-id   → ID numérico del paquete en Tebex
- *     data-package-name → Nombre para mostrar
- *     data-package-price→ Precio como número (ej: 3.07)
- */
-
 const TEBEX_TOKEN = '122zw-32dedc44cd231c3d4194a1851298af8ee373895e';
 const TEBEX_API = 'https://headless.tebex.io/api';
-
-// ─── Estado ──────────────────────────────────────────────────────────────────
 
 let carrito = (() => {
     try {
@@ -31,8 +18,6 @@ function itemEnCarrito(id) {
     return carrito.find(item => item.id === id);
 }
 
-// ─── Acciones del carrito ─────────────────────────────────────────────────────
-
 function agregarAlCarrito(paquete) {
     if (!itemEnCarrito(paquete.id)) {
         carrito.push({...paquete, cantidad: 1});
@@ -47,8 +32,6 @@ function quitarDelCarrito(id) {
     guardarCarrito();
     actualizarUI();
 }
-
-// ─── UI ───────────────────────────────────────────────────────────────────────
 
 function actualizarBadge() {
     const badge = document.getElementById('carrito-badge');
@@ -112,7 +95,6 @@ function renderizarItems() {
         `;
     }).join('');
 
-    // Event delegation: un solo listener en el contenedor, no uno por botón
     lista.onclick = function (e) {
         const btn = e.target.closest('.carrito-item__eliminar');
         if (btn) quitarDelCarrito(btn.dataset.id);
@@ -131,14 +113,10 @@ function actualizarUI() {
     renderizarItems();
 }
 
-// ─── Panel deslizable ─────────────────────────────────────────────────────────
-
 function ajustarTamanoPanel() {
     const panel = document.getElementById('carrito-panel');
     if (!panel) return;
-    // La escala vive en --escala-pagina desde que el zoom se movio del
-    // <html> al body (ver main.css). Leerla de style.zoom devolvia vacio
-    // y el panel dejaba de ajustarse.
+
     const zoom = parseFloat(
         document.documentElement.style.getPropertyValue('--escala-pagina')) || 1;
     if (zoom !== 1 && zoom > 0) {
@@ -160,8 +138,6 @@ function cerrarPanel() {
     document.getElementById('carrito-panel')?.classList.remove('abierto');
     document.body.classList.remove('carrito-abierto');
 }
-
-// ─── Tebex API ────────────────────────────────────────────────────────────────
 
 function pagoCometado() {
     carrito = [];
@@ -210,7 +186,6 @@ async function irAlPago() {
     }
     if (carrito.length === 0) return;
 
-    // Abrir popup inmediatamente dentro del gesto del usuario (evita bloqueo del navegador)
     const popupW = 900, popupH = 700;
     const popupL = Math.round((screen.width - popupW) / 2);
     const popupT = Math.round((screen.height - popupH) / 2);
@@ -224,7 +199,7 @@ async function irAlPago() {
     }
 
     try {
-        // 1. Crear cesta
+
         const resCesta = await fetch(`${TEBEX_API}/accounts/${TEBEX_TOKEN}/baskets`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -237,7 +212,6 @@ async function irAlPago() {
         if (!resCesta.ok) throw new Error('No se pudo crear la cesta en Tebex');
         const {data: cesta} = await resCesta.json();
 
-        // 2. Agregar cada paquete
         for (const item of carrito) {
             const res = await fetch(`${TEBEX_API}/baskets/${cesta.ident}/packages`, {
                 method: 'POST',
@@ -251,7 +225,6 @@ async function irAlPago() {
             }
         }
 
-        // 3. Obtener URL de checkout y navegar el popup
         const resFinal = await fetch(`${TEBEX_API}/accounts/${TEBEX_TOKEN}/baskets/${cesta.ident}`);
         if (!resFinal.ok) throw new Error('No se pudo obtener la cesta actualizada');
         const {data: cestaFinal} = await resFinal.json();
@@ -261,7 +234,7 @@ async function irAlPago() {
         if (popup && !popup.closed) {
             popup.location.href = urlPago;
         } else {
-            // Fallback si el popup fue bloqueado por el navegador
+
             window.location.href = urlPago;
         }
 
@@ -293,11 +266,9 @@ async function cargarTopDonador() {
         if (elNombre) elNombre.textContent = nombre;
         if (elAvatar) elAvatar.src = `https://vzge.me/bust/512/${encodeURIComponent(nombre)}.png?no=shadow,cape,ears`;
     } catch {
-        // Mantiene el fallback estático del HTML
+
     }
 }
-
-// ─── Jugador ──────────────────────────────────────────────────────────────────
 
 const AVATAR_DEFAULT = 'src/img/sealyworld_alex_head.webp';
 
@@ -312,10 +283,8 @@ async function actualizarAvatar(nombre) {
     const avatar = document.querySelector('.tienda-jugador__icono img');
     if (!avatar) return;
 
-    // Mostrar skin al instante sin esperar la verificación
     avatar.src = `https://vzge.me/face/512/${encodeURIComponent(nombre)}.png?no=shadow,ears,cape`;
 
-    // Verificar en segundo plano si la cuenta existe
     try {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 4000);
@@ -361,11 +330,8 @@ function establecerJugador(nombre) {
     renderizarItems();
 }
 
-// ─── Init ─────────────────────────────────────────────────────────────────────
-
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Si esta ventana es el popup de retorno tras el pago, muestra confirmación y cierra
     if (new URLSearchParams(window.location.search).get('pago') === 'ok') {
         document.documentElement.style.cssText = 'margin:0;padding:0;height:100%;overflow:hidden;';
         document.body.style.cssText = 'margin:0;padding:0;height:100%;overflow:hidden;';
@@ -391,17 +357,15 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    // Restaurar nombre de jugador guardado
     const inputNombre = document.querySelector('.tienda-jugador__entrada');
     if (inputNombre && jugador) {
         inputNombre.value = jugador;
         actualizarAvatar(jugador);
     }
 
-    // Guardar nombre al hacer clic en el botón o Enter
     const btnCheck = document.querySelector('.tienda-jugador__boton-check');
     if (btnCheck && inputNombre) {
-        // Bloquear caracteres inválidos al escribir
+
         inputNombre.addEventListener('input', function () {
             const pos = this.selectionStart;
             const limpio = this.value.replace(/[^a-zA-Z0-9_]/g, '').slice(0, 16);
@@ -421,23 +385,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Botón carrito → abrir panel
     document.querySelector('.tienda-cabecera__btn-carrito')?.addEventListener('click', function (e) {
         e.preventDefault();
         abrirPanel();
     });
 
-    // Cerrar panel
     document.getElementById('carrito-cerrar')?.addEventListener('click', cerrarPanel);
     document.querySelector('.carrito-panel__overlay')?.addEventListener('click', cerrarPanel);
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') cerrarPanel();
     });
 
-    // Ir al pago
     document.getElementById('btn-checkout')?.addEventListener('click', irAlPago);
 
-    // Botones "Comprar" → agregar/quitar del carrito
     document.querySelectorAll('.tienda-paquetes__boton').forEach(btn => {
         btn.addEventListener('click', function (e) {
             e.preventDefault();
@@ -461,14 +421,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Ajustar panel al zoom de la página.
-    // Se retrasa 150ms para ejecutar DESPUÉS del debounce de fitPageToScreen (100ms en main.js).
     window.addEventListener('load', () => setTimeout(ajustarTamanoPanel, 200));
     window.addEventListener('resize', () => setTimeout(ajustarTamanoPanel, 150));
 
-    // Cargar top donador desde Tebex
     cargarTopDonador();
 
-    // Render inicial
     actualizarUI();
 });

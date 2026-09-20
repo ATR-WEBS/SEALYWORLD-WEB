@@ -1,49 +1,11 @@
-/**
-* SEALYWORLD - La travesia
-* La cortinilla de entrada. Cada tramo de la secuencia es una clase que
-* intro.js va encendiendo sobre #intro; aqui solo esta escrito COMO se ve
-* cada tramo, nunca CUANDO. Los tiempos viven todos en intro.js.
-*
-*   (sin clase)   el barco esta fuera de plano, a la izquierda
-*   .is-sailing   navega hasta la isla
-*   .is-open      salta la tapa: luz, haz y destellos
-*   .is-zooming   la camara entra en el cofre
-*   .is-flash     fogonazo blanco que cubre el corte
-*   .is-done      se retira y aparece la tienda
-*
-* Indice:
-*   0. Dependencias
-*   1. El telon
-*   2. Cielo, rotulo y agua en movimiento
-*   3. El barco
-*   4. El cofre
-*   5. La camara y el fogonazo
-*   6. Boton de saltar
-*   7. Movimiento reducido
-*/
-
-/*--------------------------------------------------------------
-# 0. Dependencias
---------------------------------------------------------------*/
-/* La travesia se basta sola: no hereda nada de main.css. Lo que necesita
-   de fuera se declara aqui, para que mover la cortinilla a otra pagina sea
-   copiar dos archivos y tres lineas de HTML.
-
-   --display es la tipografia del rotulo que va escrito en el cielo. El
-   resto del sitio usa Karla; esta es la unica pieza que pide Fredoka. */
 .intro {
   --display: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
 }
 
-/*--------------------------------------------------------------
-# 1. El telon
---------------------------------------------------------------*/
 .intro {
   position: fixed;
   inset: 0;
-  /* Por encima de todo lo que monta main.css: la cabecera (997), los menus
-     (9997-10000) y el fundido de entrada (999998). El telon tiene que tapar
-     la pagina entera, incluido cualquier modal que se abriera solo. */
+
   z-index: 1000000;
   overflow: hidden;
   background: #77d5e4;
@@ -55,14 +17,8 @@
   height: 100%;
 }
 
-/* Mientras corre la cortinilla la tienda ni se ve ni se puede tocar, y la
-   pagina no scrollea: cualquier rueda de raton durante el zoom rompe el
-   plano. */
 body.is-intro { overflow: hidden; }
 
-/* Se oculta TODO lo que cuelga del body menos el propio telon, en vez de
-   un contenedor envoltorio: asi la cortinilla no le pide nada al maquetado
-   de la pagina y vale igual en cualquiera de las secciones del sitio. */
 body.is-intro > *:not(.intro) {
   opacity: 0;
   pointer-events: none;
@@ -72,15 +28,11 @@ body > *:not(.intro) {
   transition: opacity .7s ease;
 }
 
-/* Al terminar, el telon se aparta y deja de existir para el raton. */
 .intro.is-done {
   opacity: 0;
   pointer-events: none;
 }
 
-/*--------------------------------------------------------------
-# 2. Cielo y agua en movimiento
---------------------------------------------------------------*/
 .cloud {
   will-change: transform;
   animation: drift 64s linear infinite;
@@ -106,17 +58,11 @@ body > *:not(.intro) {
   100% { transform: translate(1100px, -60px); opacity: 0; }
 }
 
-/* EL ROTULO EN EL CIELO
-   Deriva despacio, como los bancos de nube que tiene alrededor: quieto se
-   leeria como un letrero pegado sobre el dibujo. */
 #skyword {
   transform-box: fill-box;
   transform-origin: 50% 50%;
   animation: skyword 11s ease-in-out infinite alternate;
-  /* La visibilidad va con retardo para que al terminar el fundido el
-     rotulo salga del arbol de pintado: mientras siga visible, el filtro
-     de nube se recalcula en cada fotograma del zoom, y ahi cada
-     milisegundo cuenta. */
+
   transition: opacity .4s ease, visibility 0s linear .4s;
 }
 
@@ -125,15 +71,11 @@ body > *:not(.intro) {
   to   { transform: translate(16px, -5px); }
 }
 
-/* En cuanto la camara se lanza, el rotulo se va: si se queda, se escala
-   con el plano y estorba justo en el momento del zoom. */
 .intro.is-zooming #skyword {
   opacity: 0;
   visibility: hidden;
 }
 
-/* Las olas de primer termino. Cada banda es mas ancha que el viewBox por
-   ambos lados, asi que puede correr sin que asome el extremo. */
 .surf > path {
   will-change: transform;
   animation: swell 9s ease-in-out infinite alternate;
@@ -147,9 +89,6 @@ body > *:not(.intro) {
   to   { transform: translate(120px, -4px); }
 }
 
-/* Las palmeras se mecen desde la base del tronco, nunca se deslizan. Cada
-   una con su periodo y su desfase: con el mismo ritmo el palmeral entero se
-   lee como una sola imagen oscilando. */
 .palm {
   transform-box: fill-box;
   transform-origin: 50% 100%;
@@ -166,31 +105,19 @@ body > *:not(.intro) {
   to   { transform: rotate(1.6deg); }
 }
 
-/*--------------------------------------------------------------
-# 3. El barco
---------------------------------------------------------------*/
-/* Arranca fuera de plano por la izquierda. */
 #ship {
   transform: translateX(-1320px);
   transition: transform 4.6s cubic-bezier(.22, .58, .22, 1);
 }
 
-/* La llegada: frena al final (la curva de arriba) como un barco que va
-   perdiendo empuje al acercarse a la orilla. */
 .intro.is-sailing #ship { transform: translateX(0); }
 
-/* Cabeceo. Va en un grupo interior para que no pelee con el translate del
-   recorrido: si compartieran transform, tocar uno borraria el otro.
-   El pivote cae sobre la linea de flotacion, a la altura del palo mayor:
-   un barco cabecea sobre el agua, no sobre la punta del mastil. En
-   porcentajes de su propia caja, que es lo que mide transform-box. */
 .ship__bob {
   transform-box: fill-box;
   transform-origin: 41% 88%;
   animation: bob 3.4s ease-in-out infinite;
 }
 
-/* Las banderas ondean aparte del cabeceo: el viento no espera al oleaje. */
 .flag {
   transform-box: fill-box;
   transform-origin: 0% 50%;
@@ -209,10 +136,6 @@ body > *:not(.intro) {
   50%      { transform: translateY(-9px) rotate(1.4deg); }
 }
 
-/* El agua sube y baja en CONTRAFASE con el cabeceo (mismos 3.4s, valores
-   invertidos): cuando el barco sube, el mar baja. Asi el recorrido util
-   se dobla y la quilla se hunde y emerge de verdad, en vez de que todo el
-   conjunto se desplace en bloque. */
 .ship__water {
   animation: ship-water 3.4s ease-in-out infinite;
 }
@@ -222,9 +145,6 @@ body > *:not(.intro) {
   50%      { transform: translateY(3px); }
 }
 
-/* Las espumas corren cada una a su ritmo y con su fase. Los periodos no
-   son multiplos entre si a proposito: si lo fueran, el oleaje volveria a
-   la misma postura cada pocos segundos y se notaria el bucle. */
 .ship__foam,
 .ship__bow > path,
 .ship__wake > path {
@@ -244,25 +164,20 @@ body > *:not(.intro) {
   to   { transform: translate(11px, -2px); opacity: .62; }
 }
 
-/* La proa empuja: la rompiente se abre hacia adelante y se deshace. */
 @keyframes bow {
   from { transform: translate(-6px, 3px) scaleX(.92); opacity: .22; }
   to   { transform: translate(8px, -2px) scaleX(1.1); opacity: .65; }
 }
 
-/* La estela hace lo contrario: se queda atras y se diluye. */
 @keyframes wake {
   from { transform: translate(14px, 0); opacity: .34; }
   to   { transform: translate(-16px, 3px); opacity: .06; }
 }
 
-/*--------------------------------------------------------------
-# 4. El cofre
---------------------------------------------------------------*/
 #chestLid {
   transform-box: fill-box;
-  transform-origin: 4% 100%;   /* canto inferior izquierdo: la bisagra */
-  /* El rebote del final de la curva es lo que le da el golpe de tapa. */
+  transform-origin: 4% 100%;
+
   transition: transform .8s cubic-bezier(.34, 1.5, .5, 1);
 }
 
@@ -279,12 +194,8 @@ body > *:not(.intro) {
 .intro.is-open #chestHalo { opacity: 1; }
 .intro.is-open #chestSparks { opacity: 1; transition-delay: .3s; }
 
-/* El haz entra un poco despues que la tapa. Si sale a la vez se lee como
-   un interruptor; con el retardo parece que la luz escapa al abrirse. */
 .intro.is-open #chestBeam { opacity: 1; transition-delay: .18s; }
 
-/* El halo late: sin esto la luz se queda quieta y parece un circulo
-   pegado, no algo que sale del cofre. */
 .intro.is-open #chestHalo {
   transform-box: fill-box;
   transform-origin: 50% 50%;
@@ -310,15 +221,8 @@ body > *:not(.intro) {
   50%      { transform: scale(1.2) rotate(90deg); opacity: 1; }
 }
 
-/*--------------------------------------------------------------
-# 5. La camara y el fogonazo
---------------------------------------------------------------*/
-/* El transform lo escribe intro.js (necesita el punto exacto del cofre
-   para calcular el encuadre). Aqui solo va como se mueve.
-   La curva arranca despacio y se dispara al final: asi el ultimo tramo
-   del zoom pasa deprisa y el corte a la tienda no da tiempo a verse. */
 #camera {
-  transform-box: view-box;   /* el encuadre se mide contra el viewBox, no contra el dibujo */
+  transform-box: view-box;
   transform-origin: 0 0;
   transition: transform 2.3s cubic-bezier(.62, 0, .82, .34);
 }
@@ -329,11 +233,6 @@ body > *:not(.intro) {
 
 .intro.is-flash #flash { opacity: 1; }
 
-/*--------------------------------------------------------------
-# 6. Boton de saltar
---------------------------------------------------------------*/
-/* En cuanto la camara se lanza, el boton se va: si se queda, se escala
-   con el plano y estorba justo en el momento del zoom. */
 .intro.is-zooming .intro__skip {
   opacity: 0;
   transform: translateY(-18px);
@@ -357,12 +256,6 @@ body > *:not(.intro) {
 
 .intro__skip:hover { background: rgb(6 60 84 / .55); }
 
-/*--------------------------------------------------------------
-# 7. Movimiento reducido
---------------------------------------------------------------*/
-/* La travesia se ve siempre, tambien con movimiento reducido: es la entrada
-   al sitio, dura ocho segundos y tiene salida (boton Saltar y Escape). Lo
-   que si se apaga es la animacion de la tienda que hay detras. */
 @media (prefers-reduced-motion: reduce) {
   body:not(.is-intro) *,
   body:not(.is-intro) *::before,
@@ -372,9 +265,6 @@ body > *:not(.intro) {
     transition-duration: .001ms !important;
   }
 
-  /* El cierre de la travesia tambien se anima: para cuando el telon se
-     funde y la tienda aparece, el body ya perdio .is-intro y la regla de
-     arriba se lo comeria. Mas especifica, asi que gana. */
   body:not(.is-intro) .intro,
   body:not(.is-intro) .intro *,
   body:not(.is-intro) > *:not(.intro) {
