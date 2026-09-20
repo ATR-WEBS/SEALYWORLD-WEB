@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <!-- Zoom crítico inline: evita CLS al aplicar zoom antes del primer paint -->
+    <script>!function(){if(window.innerWidth>=768){document.documentElement.style.zoom=window.innerWidth/2300;}}();</script>
+    <title>Inicio | Sealy World</title>
+    <meta name="description"
+          content="Bienvenido a SealyWorld. Lee las últimas noticias, mira a la comunidad en vivo y descubre las mecánicas de nuestro servidor de Minecraft.">
+    <meta name="keywords" content="SealyWorld, noticias Minecraft, streams en vivo, mecánicas servidor, Minecraft survival">
+
+    <!-- Favicons -->
+    <link href="src/img/sealyworld_logo_sinfondo.webp" rel="icon" type="image/webp">
+    <link href="src/img/sealyworld_logo_sinfondo.webp" rel="apple-touch-icon">
+
+    <!-- Preconnect a orígenes externos críticos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://vzge.me">
+
+    <!-- Preload: imagen de fondo (LCP) -->
+    <link rel="preload" as="image" href="src/img/sealyworld_background.webp" type="image/webp" fetchpriority="high">
+
+    <!-- Fuentes: carga no bloqueante -->
+    <link rel="preload" as="style"
+          href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
+          onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
+              rel="stylesheet">
+    </noscript>
+
+    <!-- Bootstrap CSS (crítico para layout — bloqueante intencional) -->
+    <link href="src/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons — sync para evitar CLS de iconos en cabecera -->
+    <link href="src/lib/bootstrap-icons/bootstrap-icons-subset.css" rel="stylesheet">
+
+    <!-- CSS principal -->
+    <link href="src/css/main.css?v=90" rel="stylesheet">
+</head>
+
+<body class="tienda">
+
+<div id="fade-entrada"></div>
+
+<header id="tienda-cabecera" class="tienda-cabecera d-flex align-items-center">
+    <div class="tienda-cabecera__contenedor container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+        <nav id="tienda-nav" class="tienda-nav">
+            <ul>
+                <li><a href="inicio.html" class="tienda-nav__enlace active">Inicio</a></li>
+                <li><a href="index.html" class="tienda-nav__enlace">TIENDA</a></li>
+                <li><a href="recompensas.html" class="tienda-nav__enlace">Recompensas</a></li>
+                <li><a href="tops.html" class="tienda-nav__enlace">Tops</a></li>
+                <li><a href="sanciones.html" class="tienda-nav__enlace">Sanciones</a></li>
+                <li><a href="equipo.html" class="tienda-nav__enlace">Equipo</a></li>
+            </ul>
+            <i class="tienda-nav__toggle d-xl-none bi bi-list" role="button" tabindex="0" aria-label="Abrir menú"
+               aria-expanded="false" aria-controls="tienda-nav"></i>
+        </nav>
+
+        <div class="tienda-cabecera__acciones d-flex align-items-center">
+            <a class="tienda-cabecera__btn-discord" href="#" title="Discord" aria-label="Unirse a Discord">
+                <i class="bi bi-discord"></i>
+            </a>
+            <a class="tienda-cabecera__btn-ip d-none d-md-inline-flex" href="#" target="_blank">
+                SEALYWORLD.COM
+            </a>
+            <a class="tienda-cabecera__btn-carrito" href="#" title="Carrito de compras" aria-label="Carrito de compras">
+                <i class="bi bi-cart-fill"></i>
+                <span id="carrito-badge" class="carrito-badge" style="display:none">0</span>
+            </a>
+        </div>
+
+    </div>
+</header>
+
+<main class="tienda__contenido">
+
+    <!-- ===================== Sección: Noticias recientes ===================== -->
+    <section id="inicio-noticias" class="tienda-soporte section">
+        <div class="container">
+
+            <header class="inicio-cab">
+                <span class="inicio-cab__eyebrow"><i class="bi bi-megaphone-fill"></i> Lo último</span>
+                <h2 class="inicio-cab__titulo">Noticias recientes</h2>
+                <p class="inicio-cab__sub">Entérate de todas las novedades de SealyWorld</p>
+            </header>
+
+            <div class="noticias__grid">
+
+                <!-- Noticia 1 -->
+                <article class="noticia" style="--nk:#39d6c8">
+                    <a href="#" class="noticia__media" aria-label="Nueva Modalidad">
+                        <img src="src/img/sealyworld_background.webp" alt="Nueva Modalidad"
+                             width="640" height="320" loading="eager">
+                    </a>
+                    <div class="noticia__body">
+                        <span class="noticia__tag">Anuncio</span>
+                        <h3 class="noticia__titulo">Nueva Modalidad</h3>
+                        <p class="noticia__desc">Experimenta la esencia pura de Minecraft con toques estratégicos.
+                            Compatible con versiones 1.18.2 hasta 1.21.5, tanto Java como Bedrock.</p>
+                        <a href="#" class="noticia__leermas">Leer más
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 12h14M13 6l6 6-6 6"/>
+                            </svg>
+                        </a>
+                        <div class="noticia__meta">
+                            <img class="noticia__avatar" src="https://vzge.me/face/64/iJanna.png" alt="iJanna"
+                                 width="28" height="28" loading="lazy">
+                            <span class="noticia__autor">iJanna</span>
+                            <span class="noticia__fecha"><i class="bi bi-calendar3"></i> Mayo 1, 2025</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Noticia 2 -->
+                <article class="noticia" style="--nk:#d96bff">
+                    <a href="#" class="noticia__media" aria-label="Rangos Nuevos">
+                        <img src="src/img/sealyworld_background.webp" alt="Rangos Nuevos"
+                             width="640" height="320" loading="lazy">
+                    </a>
+                    <div class="noticia__body">
+                        <span class="noticia__tag">Anuncio</span>
+                        <h3 class="noticia__titulo">Rangos Nuevos</h3>
+                        <p class="noticia__desc">Jerarquía renovada con Knight, Paladin, Witcher y Master como rangos
+                            iniciales; y Warlord, Dragon, Arcane y Overlord como rangos premium.</p>
+                        <a href="#" class="noticia__leermas">Leer más
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 12h14M13 6l6 6-6 6"/>
+                            </svg>
+                        </a>
+                        <div class="noticia__meta">
+                            <img class="noticia__avatar" src="https://vzge.me/face/64/iJanna.png" alt="iJanna"
+                                 width="28" height="28" loading="lazy">
+                            <span class="noticia__autor">iJanna</span>
+                            <span class="noticia__fecha"><i class="bi bi-calendar3"></i> Abril 29, 2025</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Noticia 3 -->
+                <article class="noticia" style="--nk:#f5bb1d">
+                    <a href="#" class="noticia__media" aria-label="Nuevas Colecciones">
+                        <img src="src/img/sealyworld_background.webp" alt="Nuevas Colecciones"
+                             width="640" height="320" loading="lazy">
+                    </a>
+                    <div class="noticia__body">
+                        <span class="noticia__tag">Anuncio</span>
+                        <h3 class="noticia__titulo">Nuevas Colecciones</h3>
+                        <p class="noticia__desc">Demuestra ser el mejor en seis categorías: Minería, Animales, Caza,
+                            Agricultura, Tala y Jefes. Accede mediante /colecciones o /col.</p>
+                        <a href="#" class="noticia__leermas">Leer más
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 12h14M13 6l6 6-6 6"/>
+                            </svg>
+                        </a>
+                        <div class="noticia__meta">
+                            <img class="noticia__avatar" src="https://vzge.me/face/64/iJanna.png" alt="iJanna"
+                                 width="28" height="28" loading="lazy">
+                            <span class="noticia__autor">iJanna</span>
+                            <span class="noticia__fecha"><i class="bi bi-calendar3"></i> Abril 25, 2025</span>
+                        </div>
+                    </div>
+                </article>
+
+            </div><!-- /noticias__grid -->
+
+        </div>
+    </section>
+
+    <!-- ===================== Sección: Streams en vivo ===================== -->
+    <section id="inicio-streams" class="tienda-soporte section">
+        <div class="container">
+
+            <header class="inicio-cab">
+                <span class="inicio-cab__eyebrow inicio-cab__eyebrow--live">
+                    <span class="inicio-cab__livedot"></span> En vivo ahora
+                </span>
+                <h2 class="inicio-cab__titulo">La comunidad transmitiendo</h2>
+                <p class="inicio-cab__sub">Los streams más vistos de SealyWorld en este momento</p>
+            </header>
+
+            <div class="streams__grid">
+
+                <!-- Stream 1 -->
+                <article class="stream" style="--sk:#9146ff">
+                    <a href="#" class="stream__media" target="_blank" rel="noopener noreferrer">
+                        <img src="src/img/sealyworld_background.webp" alt="Stream de DiamondCraft"
+                             width="640" height="360" loading="lazy">
+                        <span class="stream__live"><span class="stream__livedot"></span> EN VIVO</span>
+                        <span class="stream__viewers"><i class="bi bi-eye-fill"></i> 1.2K</span>
+                        <span class="stream__plat" title="Twitch"><i class="bi bi-twitch"></i></span>
+                        <span class="stream__play"><i class="bi bi-play-fill"></i></span>
+                    </a>
+                    <div class="stream__info">
+                        <img class="stream__avatar" src="https://vzge.me/face/64/myclass.png" alt="DiamondCraft"
+                             width="40" height="40" loading="lazy">
+                        <div class="stream__texto">
+                            <h3 class="stream__titulo">¡Construyendo la mega base del clan!</h3>
+                            <span class="stream__streamer">DiamondCraft</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Stream 2 -->
+                <article class="stream" style="--sk:#ff0000">
+                    <a href="#" class="stream__media" target="_blank" rel="noopener noreferrer">
+                        <img src="src/img/sealyworld_background.webp" alt="Stream de SteveXD"
+                             width="640" height="360" loading="lazy">
+                        <span class="stream__live"><span class="stream__livedot"></span> EN VIVO</span>
+                        <span class="stream__viewers"><i class="bi bi-eye-fill"></i> 874</span>
+                        <span class="stream__plat" title="YouTube"><i class="bi bi-youtube"></i></span>
+                        <span class="stream__play"><i class="bi bi-play-fill"></i></span>
+                    </a>
+                    <div class="stream__info">
+                        <img class="stream__avatar" src="https://vzge.me/face/64/SteveXD.png" alt="SteveXD"
+                             width="40" height="40" loading="lazy">
+                        <div class="stream__texto">
+                            <h3 class="stream__titulo">PvP ranked: subiendo a top 1 del server</h3>
+                            <span class="stream__streamer">SteveXD</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Stream 3 -->
+                <article class="stream" style="--sk:#53fc18">
+                    <a href="#" class="stream__media" target="_blank" rel="noopener noreferrer">
+                        <img src="src/img/sealyworld_background.webp" alt="Stream de AquaMint"
+                             width="640" height="360" loading="lazy">
+                        <span class="stream__live"><span class="stream__livedot"></span> EN VIVO</span>
+                        <span class="stream__viewers"><i class="bi bi-eye-fill"></i> 612</span>
+                        <span class="stream__plat" title="Kick"><i class="bi bi-lightning-charge-fill"></i></span>
+                        <span class="stream__play"><i class="bi bi-play-fill"></i></span>
+                    </a>
+                    <div class="stream__info">
+                        <img class="stream__avatar" src="https://vzge.me/face/64/AquaMint.png" alt="AquaMint"
+                             width="40" height="40" loading="lazy">
+                        <div class="stream__texto">
+                            <h3 class="stream__titulo">Farmeando colecciones y eventos en vivo</h3>
+                            <span class="stream__streamer">AquaMint</span>
+                        </div>
+                    </div>
+                </article>
+
+            </div><!-- /streams__grid -->
+
+            <div class="inicio-vermas-wrap">
+                <a href="#" class="inicio-vermas">
+                    <i class="bi bi-broadcast"></i> Ver más streams
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12h14M13 6l6 6-6 6"/>
+                    </svg>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===================== Sección: Mecánicas de juego ===================== -->
+    <section id="inicio-mecanicas" class="tienda-soporte section">
+        <div class="container">
+
+            <header class="inicio-cab">
+                <span class="inicio-cab__eyebrow"><i class="bi bi-journal-bookmark-fill"></i> Wiki</span>
+                <h2 class="inicio-cab__titulo">Mecánicas de juego</h2>
+                <p class="inicio-cab__sub">Todo lo que puedes hacer dentro de SealyWorld</p>
+            </header>
+
+            <div class="mecanicas__grid">
+
+                <a href="#" class="meca" style="--mk:#ff7a59">
+                    <span class="meca__icon"><i class="bi bi-shield-shaded"></i></span>
+                    <h3 class="meca__titulo">Clanes &amp; Guerras</h3>
+                    <p class="meca__desc">Crea tu clan, reclama territorio y compite por el dominio del mapa en guerras
+                        organizadas.</p>
+                    <span class="meca__cmd">/clan</span>
+                </a>
+
+                <a href="#" class="meca" style="--mk:#f5bb1d">
+                    <span class="meca__icon"><i class="bi bi-coin"></i></span>
+                    <h3 class="meca__titulo">Economía &amp; Mercado</h3>
+                    <p class="meca__desc">Compra y vende con otros jugadores en el mercado global y haz crecer tu
+                        fortuna.</p>
+                    <span class="meca__cmd">/mercado</span>
+                </a>
+
+                <a href="#" class="meca" style="--mk:#36c98e">
+                    <span class="meca__icon"><i class="bi bi-tools"></i></span>
+                    <h3 class="meca__titulo">Trabajos</h3>
+                    <p class="meca__desc">Gana dinero minando, talando, pescando o cazando. Cada trabajo sube de nivel y
+                        da más recompensas.</p>
+                    <span class="meca__cmd">/trabajos</span>
+                </a>
+
+                <a href="#" class="meca" style="--mk:#39d6c8">
+                    <span class="meca__icon"><i class="bi bi-collection-fill"></i></span>
+                    <h3 class="meca__titulo">Colecciones</h3>
+                    <p class="meca__desc">Completa colecciones de minería, animales, caza, agricultura, tala y jefes para
+                        subir de rango.</p>
+                    <span class="meca__cmd">/colecciones</span>
+                </a>
+
+                <a href="#" class="meca" style="--mk:#d96bff">
+                    <span class="meca__icon"><i class="bi bi-box-seam-fill"></i></span>
+                    <h3 class="meca__titulo">Cajas &amp; Llaves</h3>
+                    <p class="meca__desc">Consigue llaves votando o jugando y abre cajas con recompensas exclusivas y
+                        cosméticos.</p>
+                    <span class="meca__cmd">/cajas</span>
+                </a>
+
+                <a href="#" class="meca" style="--mk:#5b8cff">
+                    <span class="meca__icon"><i class="bi bi-calendar-event-fill"></i></span>
+                    <h3 class="meca__titulo">Eventos &amp; Misiones</h3>
+                    <p class="meca__desc">Participa en eventos diarios y semanales con misiones, retos y premios para toda
+                        la comunidad.</p>
+                    <span class="meca__cmd">/eventos</span>
+                </a>
+
+            </div><!-- /mecanicas__grid -->
+
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="tienda-footer section">
+        <div class="container">
+            <div class="tienda-footer__contenido">
+                <div class="tienda-footer__logo">
+                    <img src="src/img/sealyworld_logo.webp"
+                         alt="Sealyworld"
+                         width="100" height="100"
+                         loading="lazy">
+                </div>
+                <div class="tienda-footer__legal">
+                    <p>© 2025 Sealyworld. Todos los derechos reservados.</p>
+                    <p>No afiliado con Mojang Studios ni Microsoft.</p>
+                </div>
+                <div class="tienda-footer__redes">
+                    <a href="#" class="tienda-footer__red" title="YouTube" aria-label="YouTube">
+                        <i class="bi bi-youtube"></i>
+                    </a>
+                    <a href="#" class="tienda-footer__red" title="Discord" aria-label="Discord">
+                        <i class="bi bi-discord"></i>
+                    </a>
+                    <a href="#" class="tienda-footer__red" title="Twitter" aria-label="Twitter">
+                        <i class="bi bi-twitter-x"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</main>
+
+<!-- Carrito Panel -->
+<div id="carrito-panel" class="carrito-panel">
+    <div class="carrito-panel__overlay"></div>
+    <div class="carrito-panel__cajita">
+
+        <div class="carrito-panel__cabecera">
+            <h3 class="carrito-panel__titulo">
+                <i class="bi bi-cart-fill"></i> Tu Carrito
+            </h3>
+            <button id="carrito-cerrar" class="carrito-panel__cerrar" aria-label="Cerrar carrito">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <div id="carrito-vacio" class="carrito-panel__vacio">
+            <i class="bi bi-cart-x-fill"></i>
+            <p>Tu carrito está vacío</p>
+            <span>Agrega paquetes de Zafiros para continuar</span>
+        </div>
+
+        <div id="carrito-lista" class="carrito-panel__lista"></div>
+
+        <div class="carrito-panel__pie">
+            <div class="carrito-panel__total-fila">
+                <span class="carrito-panel__total-label">Total:</span>
+                <span id="carrito-total" class="carrito-panel__total-valor">$0.00</span>
+            </div>
+            <div id="carrito-jugador-aviso" class="carrito-panel__jugador-aviso" style="display:none">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                Ingresa tu nombre de jugador primero
+            </div>
+            <button id="btn-checkout" class="carrito-panel__btn-checkout">
+                <i class="bi bi-lock-fill"></i> Ir al Pago
+            </button>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Modal: error de pago -->
+<div id="modal-error-pago" class="modal-jugador" aria-hidden="true">
+    <div class="modal-jugador__overlay"></div>
+    <div class="modal-jugador__caja" role="dialog" aria-modal="true" aria-labelledby="modal-error-pago-titulo">
+        <div class="modal-jugador__icono">
+            <i class="bi bi-x-circle-fill"></i>
+        </div>
+        <h3 id="modal-error-pago-titulo" class="modal-jugador__titulo">Error al procesar el pago</h3>
+        <p id="modal-error-pago-texto" class="modal-jugador__texto">Ocurrió un error al procesar el pago. Por favor
+            intenta de nuevo o contacta soporte.</p>
+        <button id="modal-error-pago-cerrar" class="modal-jugador__boton">
+            <i class="bi bi-arrow-counterclockwise"></i> Intentar de nuevo
+        </button>
+    </div>
+</div>
+
+<!-- Modal: nombre de jugador requerido -->
+<div id="modal-jugador" class="modal-jugador" aria-hidden="true">
+    <div class="modal-jugador__overlay"></div>
+    <div class="modal-jugador__caja" role="dialog" aria-modal="true" aria-labelledby="modal-jugador-titulo">
+        <div class="modal-jugador__icono">
+            <i class="bi bi-person-exclamation"></i>
+        </div>
+        <h3 id="modal-jugador-titulo" class="modal-jugador__titulo">Nombre de jugador requerido</h3>
+        <p class="modal-jugador__texto">Ingresa tu nombre de jugador antes de continuar al pago.</p>
+        <button id="modal-jugador-cerrar" class="modal-jugador__boton">
+            <i class="bi bi-pencil-fill"></i> Ingresar nombre
+        </button>
+    </div>
+</div>
+
+<!-- Vendor JS Files -->
+<script src="src/lib/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+
+<!-- Main JS File -->
+<script src="src/js/main.js?v=43" defer></script>
+
+<!-- Tienda / Tebex -->
+<script src="src/js/tienda.js?v=43" defer></script>
+
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <!-- Zoom crítico inline: evita CLS al aplicar zoom antes del primer paint -->
+    <script>!function(){if(window.innerWidth>=768){document.documentElement.style.zoom=window.innerWidth/2300;}}();</script>
+    <title>Perfil | Sealy World</title>
+    <meta name="description"
+          content="Perfil de jugador de SealyWorld: estadísticas por modalidad, kills, K/D, victorias, dinero y nivel.">
+
+    <!-- Favicons -->
+    <link href="src/img/sealyworld_logo_sinfondo.webp" rel="icon" type="image/webp">
+    <link href="src/img/sealyworld_logo_sinfondo.webp" rel="apple-touch-icon">
+
+    <!-- Preconnect a orígenes externos críticos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://mc-heads.net">
+
+    <!-- Preload: imagen de fondo (LCP) -->
+    <link rel="preload" as="image" href="src/img/sealyworld_background.webp" type="image/webp" fetchpriority="high">
+
+    <!-- Fuentes: carga no bloqueante -->
+    <link rel="preload" as="style"
+          href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
+          onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
+              rel="stylesheet">
+    </noscript>
+
+    <!-- Bootstrap CSS (crítico para layout — bloqueante intencional) -->
+    <link href="src/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons — sync para evitar CLS de iconos en cabecera -->
+    <link href="src/lib/bootstrap-icons/bootstrap-icons-subset.css" rel="stylesheet">
+
+    <!-- CSS principal -->
+    <link href="src/css/main.css?v=62" rel="stylesheet">
+</head>
+
+<body class="tienda">
+
+<div id="fade-entrada"></div>
+
+<header id="tienda-cabecera" class="tienda-cabecera d-flex align-items-center">
+    <div class="tienda-cabecera__contenedor container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+        <nav id="tienda-nav" class="tienda-nav">
+            <ul>
+                <li><a href="inicio.html" class="tienda-nav__enlace">Inicio</a></li>
+                <li><a href="index.html" class="tienda-nav__enlace">TIENDA</a></li>
+                <li><a href="recompensas.html" class="tienda-nav__enlace">Recompensas</a></li>
+                <li><a href="tops.html" class="tienda-nav__enlace active">Tops</a></li>
+                <li><a href="sanciones.html" class="tienda-nav__enlace">Sanciones</a></li>
+                <li><a href="equipo.html" class="tienda-nav__enlace">Equipo</a></li>
+            </ul>
+            <i class="tienda-nav__toggle d-xl-none bi bi-list" role="button" tabindex="0" aria-label="Abrir menú"
+               aria-expanded="false" aria-controls="tienda-nav"></i>
+        </nav>
+
+        <div class="tienda-cabecera__acciones d-flex align-items-center">
+            <a class="tienda-cabecera__btn-discord" href="#" title="Discord" aria-label="Unirse a Discord">
+                <i class="bi bi-discord"></i>
+            </a>
+            <a class="tienda-cabecera__btn-ip d-none d-md-inline-flex" href="#" target="_blank">
+                SEALYWORLD.COM
+            </a>
+            <a class="tienda-cabecera__btn-carrito" href="#" title="Carrito de compras" aria-label="Carrito de compras">
+                <i class="bi bi-cart-fill"></i>
+                <span id="carrito-badge" class="carrito-badge" style="display:none">0</span>
+            </a>
+        </div>
+
+    </div>
+</header>
+
+<main class="tienda__contenido">
+
+    <!-- Sección: Perfil -->
+    <section id="perfil" class="tienda-soporte section">
+        <div class="container" id="perfil-app">
+
+            <a class="pf__back" href="tops.html">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+                Volver a Tops
+            </a>
+
+            <!-- Contenido del perfil (lo rellena perfil.js) -->
+            <div id="pf-content"></div>
+
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="tienda-footer section">
+        <div class="container">
+            <div class="tienda-footer__contenido">
+                <div class="tienda-footer__logo">
+                    <img src="src/img/sealyworld_logo.webp"
+                         alt="Sealyworld"
+                         width="100" height="100"
+                         loading="lazy">
+                </div>
+                <div class="tienda-footer__legal">
+                    <p>© 2025 Sealyworld. Todos los derechos reservados.</p>
+                    <p>No afiliado con Mojang Studios ni Microsoft.</p>
+                </div>
+                <div class="tienda-footer__redes">
+                    <a href="#" class="tienda-footer__red" title="YouTube" aria-label="YouTube">
+                        <i class="bi bi-youtube"></i>
+                    </a>
+                    <a href="#" class="tienda-footer__red" title="Discord" aria-label="Discord">
+                        <i class="bi bi-discord"></i>
+                    </a>
+                    <a href="#" class="tienda-footer__red" title="Twitter" aria-label="Twitter">
+                        <i class="bi bi-twitter-x"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</main>
+
+<!-- Vendor JS Files -->
+<script src="src/lib/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+
+<!-- Main JS File -->
+<script src="src/js/main.js?v=43" defer></script>
+
+<!-- Perfil -->
+<script src="src/js/perfil.js?v=64" defer></script>
+
+</body>
+
+</html>

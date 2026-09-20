@@ -1,0 +1,156 @@
+/*!
+ * Bootstrap Icons — SUBSET (solo iconos usados en SealyWorld)
+ * Fuente: Bootstrap Icons v1.13.1 (https://icons.getbootstrap.com/)
+ * Copyright 2019-2024 The Bootstrap Authors — MIT License
+ */
+
+@font-face {
+    font-display: swap;
+    font-family: "bootstrap-icons";
+    src: url("./fonts/bootstrap-icons.woff2?e34853135f9e39acf64315236852cd5a") format("woff2"),
+    url("./fonts/bootstrap-icons.woff?e34853135f9e39acf64315236852cd5a") format("woff");
+}
+
+.bi::before,
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+    display: inline-block;
+    font-family: bootstrap-icons !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    vertical-align: -.125em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.bi-arrow-counterclockwise::before {
+    content: "\f117";
+}
+
+.bi-arrow-right::before {
+    content: "\f138";
+}
+
+.bi-cart-fill::before {
+    content: "\f23d";
+}
+
+.bi-cart-x-fill::before {
+    content: "\f240";
+}
+
+.bi-discord::before {
+    content: "\f300";
+}
+
+.bi-exclamation-triangle-fill::before {
+    content: "\f33a";
+}
+
+.bi-hourglass-split::before {
+    content: "\f41f";
+}
+
+.bi-list::before {
+    content: "\f479";
+}
+
+.bi-lock-fill::before {
+    content: "\f47a";
+}
+
+.bi-pencil-fill::before {
+    content: "\f4c9";
+}
+
+.bi-question-circle-fill::before {
+    content: "\f504";
+}
+
+.bi-trophy-fill::before {
+    content: "\f5e6";
+}
+
+.bi-x-circle-fill::before {
+    content: "\f622";
+}
+
+.bi-youtube::before {
+    content: "\f62b";
+}
+
+.bi-x-lg::before {
+    content: "\f659";
+}
+
+.bi-trash3::before {
+    content: "\f78b";
+}
+
+.bi-person-exclamation::before {
+    content: "\f89c";
+}
+
+.bi-twitter-x::before {
+    content: "\f8db";
+}
+
+/* ── Iconos de inicio.html (noticias, streams, mecánicas) ── */
+.bi-megaphone-fill::before {
+    content: "\f483";
+}
+
+.bi-calendar3::before {
+    content: "\f214";
+}
+
+.bi-eye-fill::before {
+    content: "\f33e";
+}
+
+.bi-twitch::before {
+    content: "\f5ee";
+}
+
+.bi-lightning-charge-fill::before {
+    content: "\f46c";
+}
+
+.bi-play-fill::before {
+    content: "\f4f4";
+}
+
+.bi-broadcast::before {
+    content: "\f1d6";
+}
+
+.bi-journal-bookmark-fill::before {
+    content: "\f43c";
+}
+
+.bi-shield-shaded::before {
+    content: "\f53b";
+}
+
+.bi-coin::before {
+    content: "\f634";
+}
+
+.bi-collection-fill::before {
+    content: "\f2c9";
+}
+
+.bi-box-seam-fill::before {
+    content: "\f7d3";
+}
+
+.bi-calendar-event-fill::before {
+    content: "\f1e7";
+}
+
+.bi-tools::before {
+    content: "\f5db";
+}

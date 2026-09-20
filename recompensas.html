@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <!-- Zoom crítico inline: evita CLS al aplicar zoom antes del primer paint -->
+    <script>!function(){if(window.innerWidth>=768){document.documentElement.style.zoom=window.innerWidth/2300;}}();</script>
+    <title>Recompensas | Sealy World</title>
+    <meta name="description"
+          content="Gana recompensas exclusivas en SealyWorld con Nitro Boost, reseñas y votando por el servidor: Zafiros, boosters y cajas de votación.">
+    <meta name="keywords" content="SealyWorld, recompensas, nitro boost, reseñas, votar servidor, Minecraft, zafiros">
+
+    <!-- Favicons -->
+    <link href="src/img/sealyworld_logo_sinfondo.webp" rel="icon" type="image/webp">
+    <link href="src/img/sealyworld_logo_sinfondo.webp" rel="apple-touch-icon">
+
+    <!-- Preconnect a orígenes externos críticos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Preload: imagen de fondo (LCP) -->
+    <link rel="preload" as="image" href="src/img/sealyworld_background.webp" type="image/webp" fetchpriority="high">
+
+    <!-- Fuentes: carga no bloqueante -->
+    <link rel="preload" as="style"
+          href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
+          onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
+              rel="stylesheet">
+    </noscript>
+
+    <!-- Bootstrap CSS (crítico para layout — bloqueante intencional) -->
+    <link href="src/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons — sync para evitar CLS de iconos en cabecera -->
+    <link href="src/lib/bootstrap-icons/bootstrap-icons-subset.css" rel="stylesheet">
+
+    <!-- CSS principal -->
+    <link href="src/css/main.css?v=89" rel="stylesheet">
+</head>
+
+<body class="tienda">
+
+<div id="fade-entrada"></div>
+
+<header id="tienda-cabecera" class="tienda-cabecera d-flex align-items-center">
+    <div class="tienda-cabecera__contenedor container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+        <nav id="tienda-nav" class="tienda-nav">
+            <ul>
+                <li><a href="inicio.html" class="tienda-nav__enlace">Inicio</a></li>
+                <li><a href="index.html" class="tienda-nav__enlace">TIENDA</a></li>
+                <li><a href="recompensas.html" class="tienda-nav__enlace active">Recompensas</a></li>
+                <li><a href="tops.html" class="tienda-nav__enlace">Tops</a></li>
+                <li><a href="sanciones.html" class="tienda-nav__enlace">Sanciones</a></li>
+                <li><a href="equipo.html" class="tienda-nav__enlace">Equipo</a></li>
+            </ul>
+            <i class="tienda-nav__toggle d-xl-none bi bi-list" role="button" tabindex="0" aria-label="Abrir menú"
+               aria-expanded="false" aria-controls="tienda-nav"></i>
+        </nav>
+
+        <div class="tienda-cabecera__acciones d-flex align-items-center">
+            <a class="tienda-cabecera__btn-discord" href="#" title="Discord" aria-label="Unirse a Discord">
+                <i class="bi bi-discord"></i>
+            </a>
+            <a class="tienda-cabecera__btn-ip d-none d-md-inline-flex" href="#" target="_blank">
+                SEALYWORLD.COM
+            </a>
+            <a class="tienda-cabecera__btn-carrito" href="#" title="Carrito de compras" aria-label="Carrito de compras">
+                <i class="bi bi-cart-fill"></i>
+                <span id="carrito-badge" class="carrito-badge" style="display:none">0</span>
+            </a>
+        </div>
+
+    </div>
+</header>
+
+<main class="tienda__contenido">
+
+    <!-- Sección: Jugador (publicidad) -->
+    <section id="tienda-jugador" class="tienda-jugador section">
+        <div class="container">
+            <div class="tienda-jugador__lista row gy-4 align-items-stretch">
+
+                <div class="col-12">
+                    <div class="tienda-jugador__item tienda-jugador__item--publicidad">
+                        <div class="tienda-jugador__contenido text-center">
+                            <p>🏝️ APOYA A SEALYWORLD Y GANA RECOMPENSAS</p>
+                            <p>ZAFIROS, BOOSTERS Y CAJAS EXCLUSIVAS 🌊</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Recompensas -->
+    <section id="recompensas" class="recompensas section">
+        <div class="container">
+
+            <div class="recompensas__grid">
+
+                <!-- Nitro Boost -->
+                <article class="rcard" style="--rk:#a77dfb">
+                    <div class="rcard__body">
+                        <div class="rcard__head">
+                            <span class="rcard__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 8-8 10-8-10 8-8Z"/><path d="M12 8l3.5 3.5L12 16l-3.5-4.5L12 8Z"/></svg>
+                            </span>
+                            <h2 class="rcard__title">Nitro Boost</h2>
+                        </div>
+                        <p class="rcard__desc">Impulsa nuestro Discord con tu Nitro y consigue un rango exclusivo más recompensas dentro del servidor.</p>
+                        <span class="rcard__stepslabel">Cómo conseguirlo</span>
+                        <ol class="rcard__steps">
+                            <li><span class="rcard__n">1</span>Abre Discord y ve a SealyWorld</li>
+                            <li><span class="rcard__n">2</span>Pulsa “Mejorar servidor” y aplica tu boost</li>
+                            <li><span class="rcard__n">3</span>Vincula tu cuenta con /vincular en el juego</li>
+                        </ol>
+                    </div>
+                    <div class="rcard__cta">
+                        <a href="#" class="rcard__btn rcard__btn--sec">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7S11 3 8.5 3 5 6 5 7h7M12 7s1-4 3.5-4S19 6 19 7h-7"/></svg>
+                            Recompensas
+                        </a>
+                        <a href="#" class="rcard__btn" target="_blank" rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 8-8 10-8-10 8-8Z"/><path d="M12 8l3.5 3.5L12 16l-3.5-4.5L12 8Z"/></svg>
+                            Boostear Discord
+                            <svg class="rcard__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Reseñas (destacado) -->
+                <article class="rcard" style="--rk:#f5bb1d">
+                    <div class="rcard__body">
+                        <div class="rcard__head">
+                            <span class="rcard__icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9L12 2.5Z"/></svg>
+                            </span>
+                            <h2 class="rcard__title">Reseñas</h2>
+                        </div>
+                        <p class="rcard__desc">Cuéntale al mundo qué te parece SealyWorld. Deja una reseña honesta y recibe zafiros al instante.</p>
+                        <span class="rcard__stepslabel">Cómo conseguirlo</span>
+                        <ol class="rcard__steps">
+                            <li><span class="rcard__n">1</span>Entra a la página de reseñas</li>
+                            <li><span class="rcard__n">2</span>Escribe tu opinión y pon tus estrellas</li>
+                            <li><span class="rcard__n">3</span>Verifica tu nick para recibir la recompensa</li>
+                        </ol>
+                    </div>
+                    <div class="rcard__cta">
+                        <a href="#" class="rcard__btn rcard__btn--sec">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7S11 3 8.5 3 5 6 5 7h7M12 7s1-4 3.5-4S19 6 19 7h-7"/></svg>
+                            Recompensas
+                        </a>
+                        <a href="#" class="rcard__btn" target="_blank" rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.8 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9L12 2.5Z"/></svg>
+                            Dejar reseña
+                            <svg class="rcard__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Votos -->
+                <article class="rcard" style="--rk:#36c98e">
+                    <div class="rcard__body">
+                        <div class="rcard__head">
+                            <span class="rcard__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.5l2 2 4-4.5M5 21V8l4-5h6l4 5v13H5Z"/></svg>
+                            </span>
+                            <h2 class="rcard__title">Votos</h2>
+                        </div>
+                        <p class="rcard__desc">Vota por el servidor cada día en las listas y ayúdanos a crecer. Cada voto te da zafiros y suma al ranking.</p>
+                        <span class="rcard__stepslabel">Cómo conseguirlo</span>
+                        <ol class="rcard__steps">
+                            <li><span class="rcard__n">1</span>Ve a las listas de votación</li>
+                            <li><span class="rcard__n">2</span>Introduce tu nombre de jugador</li>
+                            <li><span class="rcard__n">3</span>Vota y reclama tu recompensa diaria</li>
+                        </ol>
+                    </div>
+                    <div class="rcard__cta">
+                        <a href="#" class="rcard__btn rcard__btn--sec">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7S11 3 8.5 3 5 6 5 7h7M12 7s1-4 3.5-4S19 6 19 7h-7"/></svg>
+                            Recompensas
+                        </a>
+                        <a href="#" class="rcard__btn" target="_blank" rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.5l2 2 4-4.5M5 21V8l4-5h6l4 5v13H5Z"/></svg>
+                            Votar ahora
+                            <svg class="rcard__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                        </a>
+                    </div>
+                </article>
+
+            </div><!-- /recompensas__grid -->
+
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="tienda-footer section">
+        <div class="container">
+            <div class="tienda-footer__contenido">
+                <div class="tienda-footer__logo">
+                    <img src="src/img/sealyworld_logo.webp"
+                         alt="Sealyworld"
+                         width="100" height="100"
+                         loading="lazy">
+                </div>
+                <div class="tienda-footer__legal">
+                    <p>© 2025 Sealyworld. Todos los derechos reservados.</p>
+                    <p>No afiliado con Mojang Studios ni Microsoft.</p>
+                </div>
+                <div class="tienda-footer__redes">
+                    <a href="#" class="tienda-footer__red" title="YouTube" aria-label="YouTube">
+                        <i class="bi bi-youtube"></i>
+                    </a>
+                    <a href="#" class="tienda-footer__red" title="Discord" aria-label="Discord">
+                        <i class="bi bi-discord"></i>
+                    </a>
+                    <a href="#" class="tienda-footer__red" title="Twitter" aria-label="Twitter">
+                        <i class="bi bi-twitter-x"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</main>
+
+<!-- Carrito Panel -->
+<div id="carrito-panel" class="carrito-panel">
+    <div class="carrito-panel__overlay"></div>
+    <div class="carrito-panel__cajita">
+
+        <div class="carrito-panel__cabecera">
+            <h3 class="carrito-panel__titulo">
+                <i class="bi bi-cart-fill"></i> Tu Carrito
+            </h3>
+            <button id="carrito-cerrar" class="carrito-panel__cerrar" aria-label="Cerrar carrito">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <div id="carrito-vacio" class="carrito-panel__vacio">
+            <i class="bi bi-cart-x-fill"></i>
+            <p>Tu carrito está vacío</p>
+            <span>Agrega paquetes de Zafiros para continuar</span>
+        </div>
+
+        <div id="carrito-lista" class="carrito-panel__lista"></div>
+
+        <div class="carrito-panel__pie">
+            <div class="carrito-panel__total-fila">
+                <span class="carrito-panel__total-label">Total:</span>
+                <span id="carrito-total" class="carrito-panel__total-valor">$0.00</span>
+            </div>
+            <div id="carrito-jugador-aviso" class="carrito-panel__jugador-aviso" style="display:none">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                Ingresa tu nombre de jugador primero
+            </div>
+            <button id="btn-checkout" class="carrito-panel__btn-checkout">
+                <i class="bi bi-lock-fill"></i> Ir al Pago
+            </button>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Modal: error de pago -->
+<div id="modal-error-pago" class="modal-jugador" aria-hidden="true">
+    <div class="modal-jugador__overlay"></div>
+    <div class="modal-jugador__caja" role="dialog" aria-modal="true" aria-labelledby="modal-error-pago-titulo">
+        <div class="modal-jugador__icono">
+            <i class="bi bi-x-circle-fill"></i>
+        </div>
+        <h3 id="modal-error-pago-titulo" class="modal-jugador__titulo">Error al procesar el pago</h3>
+        <p id="modal-error-pago-texto" class="modal-jugador__texto">Ocurrió un error al procesar el pago. Por favor
+            intenta de nuevo o contacta soporte.</p>
+        <button id="modal-error-pago-cerrar" class="modal-jugador__boton">
+            <i class="bi bi-arrow-counterclockwise"></i> Intentar de nuevo
+        </button>
+    </div>
+</div>
+
+<!-- Modal: nombre de jugador requerido -->
+<div id="modal-jugador" class="modal-jugador" aria-hidden="true">
+    <div class="modal-jugador__overlay"></div>
+    <div class="modal-jugador__caja" role="dialog" aria-modal="true" aria-labelledby="modal-jugador-titulo">
+        <div class="modal-jugador__icono">
+            <i class="bi bi-person-exclamation"></i>
+        </div>
+        <h3 id="modal-jugador-titulo" class="modal-jugador__titulo">Nombre de jugador requerido</h3>
+        <p class="modal-jugador__texto">Ingresa tu nombre de jugador antes de continuar al pago.</p>
+        <button id="modal-jugador-cerrar" class="modal-jugador__boton">
+            <i class="bi bi-pencil-fill"></i> Ingresar nombre
+        </button>
+    </div>
+</div>
+
+<!-- Vendor JS Files -->
+<script src="src/lib/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+
+<!-- Main JS File -->
+<script src="src/js/main.js?v=43" defer></script>
+
+<!-- Tienda / Tebex -->
+<script src="src/js/tienda.js?v=43" defer></script>
+
+
+</body>
+
+</html>

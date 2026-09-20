@@ -1,58 +1,51 @@
-# Sealyworld
+# SealyWorld
 
-Tienda del servidor. HTML, CSS y JS a pelo: no hay build ni dependencias
-que instalar.
-
-## Verla
+Sitio de SealyWorld. HTML estático: se abre con doble clic o se sirve con
+cualquier servidor de archivos. Con `file://` casi todo funciona, pero las
+fuentes de Google y las skins remotas no siempre cargan; mejor por servidor:
 
 ```sh
-python -m http.server 8777
+python3 -m http.server 8000
 ```
 
-y abrir <http://127.0.0.1:8777>.
-
-Con `file://` casi todo funciona, pero el botón de copiar la IP se queda
-sin `navigator.clipboard` y las skins de mc-heads no siempre cargan. Mejor
-por servidor.
+Páginas: `index.html` (Tienda, y la raíz del dominio), `inicio.html`,
+`recompensas.html`, `tops.html`, `sanciones.html`, `equipo.html`, `perfil.html`.
 
 ## La travesía
 
-La cortinilla de entrada (barco → isla → cofre → zoom → tienda) se ve
-**en cada carga de la página**: no se guarda nada y no consulta
-`prefers-reduced-motion`, así que también corre en equipos con las
-animaciones del sistema desactivadas. Se corta con el botón **Saltar** o
-con **Escape**.
+La cortinilla de entrada (barco → isla → cofre → zoom → tienda) corre **solo
+en `index.html`**, que es lo que se sirve al entrar a sealyworld.com. Se ve
+**una vez por visita**: quien pasa a Recompensas o a Tops y vuelve ya no se
+come otros ocho segundos. Cerrar la pestaña y volver otro día es llegar a la
+isla por primera vez. Para verla sin vaciar la sesión a mano, entra por
+`/#zarpar`. Se corta con el botón **Saltar** o con **Escape**.
 
-- Los **tiempos** están todos en la tabla `GUION` de `assets/js/intro.js`.
-- El **aspecto** de cada tramo, en `assets/css/intro.css`.
-- El **dibujo**, en el `<svg class="intro__scene">` de `index.html`.
+Son tres piezas y nada más:
 
-Si mueves el cofre dentro del SVG, cambia también la constante `COFRE` de
-`intro.js` o el zoom final apuntará a la arena.
+| Dónde | Qué |
+|---|---|
+| `src/js/intro.js` | **Cuándo** pasa cada cosa. Los tiempos están todos en la tabla `GUION`. |
+| `src/css/intro.css` | **Cómo** se ve cada tramo. |
+| `index.html` | **El dibujo**, en el `<svg class="intro__scene">` del `<div id="intro">`. |
 
-Con `prefers-reduced-motion` la cortinilla no se muestra.
+El SVG va en línea, no en un `<img>`: el JS tiene que mover el barco, abrir la
+tapa y empujar la cámara, y desde fuera del documento no se puede tocar nada
+de eso.
 
-## Qué falta por conectar
+### Detalles que muerden si se tocan
 
-- **La pasarela de pago.** `assets/js/shop.js`, al final: el `click` de
-  `#checkout` tiene marcado el punto exacto donde mandar el carrito y el
-  nombre del jugador a Tebex (o lo que uses).
-- **El logo.** `assets/img/ui/logo.svg` es un provisional dibujado a la
-  misma proporción que reserva el pie (150×58). Pisa el archivo y ya.
-- **Los enlaces.** El Discord apunta a `discord.gg/sealyworld` y las demás
-  pestañas del menú (Inicio, Recompensas, Tops, Sanciones, Equipo) están a
-  `#` a la espera de sus páginas.
-- **El top donador** está escrito a mano en `index.html`.
-
-## Estructura
-
-```
-index.html                 la tienda + la escena de la intro (en línea)
-assets/css/base.css        variables, reinicio, el agua, la tarjeta, botones
-assets/css/intro.css       la cortinilla
-assets/css/shop.css        la tienda
-assets/js/intro.js         el guion de la cortinilla
-assets/js/shop.js          nombre de jugador, copiar IP, carrito
-assets/img/bg/waves.svg    las olas del fondo
-assets/img/products/       las cuatro ilustraciones de los paquetes
-```
+- Si mueves el cofre dentro del SVG, mueve también la constante `COFRE` de
+  `intro.js`, o el zoom final apuntará a la arena.
+- El `<script>` de la travesía va **pegado al telón**, no al final del body con
+  los demás: cuando ya se vio en esta visita hay que retirarlo antes del primer
+  pintado, o asoma un fotograma de la isla al volver a la tienda.
+- `index.html` es la única página **sin** `#fade-entrada`. Ese fundido negro va
+  en `z-index: 999998`, por encima del telón; los dos a la vez serían un
+  parpadeo negro sobre el primer fotograma.
+- `intro.css` no hereda nada de `main.css`. Lo que necesita de fuera está
+  declarado en su sección 0, así que llevarse la cortinilla a otra página es
+  copiar dos archivos y tres líneas de HTML.
+- La travesía **no** consulta `prefers-reduced-motion`. Es deliberado: Windows
+  con "Mostrar animaciones" desactivado lo reporta, y ahí la entrada quedaba
+  muerta. Quien no la quiera tiene Saltar y Escape. La regla que sí respeta esa
+  preferencia, para el resto del sitio, está al final de `intro.css`.
